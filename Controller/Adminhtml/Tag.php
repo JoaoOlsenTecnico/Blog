@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -51,6 +51,7 @@ abstract class Tag extends Action
 
     /**
      * Tag constructor.
+     *
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\Registry $coreRegistry
      * @param \Mageplaza\Blog\Model\TagFactory $tagFactory
@@ -59,8 +60,7 @@ abstract class Tag extends Action
         Context $context,
         Registry $coreRegistry,
         TagFactory $tagFactory
-    )
-    {
+    ) {
         $this->tagFactory = $tagFactory;
         $this->coreRegistry = $coreRegistry;
 
@@ -69,6 +69,7 @@ abstract class Tag extends Action
 
     /**
      * @param bool $register
+     *
      * @return bool|\Mageplaza\Blog\Model\Tag
      */
     protected function initTag($register = false)

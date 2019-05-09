@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -23,8 +23,8 @@ namespace Mageplaza\Blog\Controller\Adminhtml\Import;
 
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
-use Mageplaza\Blog\Helper\Data as BlogHelper;
 use Magento\Framework\Exception\LocalizedException;
+use Mageplaza\Blog\Helper\Data as BlogHelper;
 
 /**
  * Class Import
@@ -39,15 +39,16 @@ class Validate extends Action
 
     /**
      * Validate constructor.
+     *
      * @param Context $context
      * @param BlogHelper $blogHelper
      */
     public function __construct(
         Context $context,
         BlogHelper $blogHelper
-    )
-    {
+    ) {
         $this->blogHelper = $blogHelper;
+
         parent::__construct($context);
     }
 
@@ -67,15 +68,19 @@ class Validate extends Action
             $result = ['import_name' => $importName, 'status' => 'ok'];
 
             mysqli_close($connect);
+
             return $this->getResponse()->representJson(BlogHelper::jsonEncode($result));
         } catch (LocalizedException $e) {
             $result = ['import_name' => $data["import_name"], 'status' => 'false'];
+
             return $this->getResponse()->representJson(BlogHelper::jsonEncode($result));
         } catch (\RuntimeException $e) {
             $result = ['import_name' => $data["import_name"], 'status' => 'false'];
+
             return $this->getResponse()->representJson(BlogHelper::jsonEncode($result));
         } catch (\Exception $e) {
             $result = ['import_name' => $data["import_name"], 'status' => 'false'];
+
             return $this->getResponse()->representJson(BlogHelper::jsonEncode($result));
         }
     }

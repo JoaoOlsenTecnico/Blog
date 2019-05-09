@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -58,6 +58,7 @@ class Post extends Extended implements TabInterface
 
     /**
      * Post constructor.
+     *
      * @param \Magento\Backend\Block\Template\Context $context
      * @param \Magento\Framework\Registry $coreRegistry
      * @param \Magento\Backend\Helper\Data $backendHelper
@@ -72,8 +73,7 @@ class Post extends Extended implements TabInterface
         PostFactory $postFactory,
         CollectionFactory $postCollectionFactory,
         array $data = []
-    )
-    {
+    ) {
         $this->coreRegistry = $coreRegistry;
         $this->postFactory = $postFactory;
         $this->postCollectionFactory = $postCollectionFactory;
@@ -121,49 +121,37 @@ class Post extends Extended implements TabInterface
      */
     protected function _prepareColumns()
     {
-        $this->addColumn(
-            'in_posts',
-            [
-                'header_css_class' => 'a-center',
-                'type' => 'checkbox',
-                'name' => 'in_post',
-                'values' => $this->_getSelectedPosts(),
-                'align' => 'center',
-                'index' => 'post_id'
-            ]
-        );
-        $this->addColumn(
-            'post_id',
-            [
-                'header' => __('ID'),
-                'sortable' => true,
-                'index' => 'post_id',
-                'type' => 'number',
-                'header_css_class' => 'col-id',
-                'column_css_class' => 'col-id'
-            ]
-        );
-        $this->addColumn(
-            'title',
-            [
-                'header' => __('Name'),
-                'index' => 'name',
-                'header_css_class' => 'col-name',
-                'column_css_class' => 'col-name'
-            ]
-        );
-        $this->addColumn(
-            'position',
-            [
-                'header' => __('Position'),
-                'name' => 'position',
-                'width' => 60,
-                'type' => 'number',
-                'validate_class' => 'validate-number',
-                'index' => 'position',
-                'editable' => true,
-            ]
-        );
+        $this->addColumn('in_posts', [
+            'header_css_class' => 'a-center',
+            'type'             => 'checkbox',
+            'name'             => 'in_post',
+            'values'           => $this->_getSelectedPosts(),
+            'align'            => 'center',
+            'index'            => 'post_id'
+        ]);
+        $this->addColumn('post_id', [
+            'header'           => __('ID'),
+            'sortable'         => true,
+            'index'            => 'post_id',
+            'type'             => 'number',
+            'header_css_class' => 'col-id',
+            'column_css_class' => 'col-id'
+        ]);
+        $this->addColumn('title', [
+            'header'           => __('Name'),
+            'index'            => 'name',
+            'header_css_class' => 'col-name',
+            'column_css_class' => 'col-name'
+        ]);
+        $this->addColumn('position', [
+            'header'         => __('Position'),
+            'name'           => 'position',
+            'width'          => 60,
+            'type'           => 'number',
+            'validate_class' => 'validate-number',
+            'index'          => 'position',
+            'editable'       => true,
+        ]);
 
         return $this;
     }
@@ -204,6 +192,7 @@ class Post extends Extended implements TabInterface
 
     /**
      * @param \Mageplaza\Blog\Model\Post|\Magento\Framework\Object $item
+     *
      * @return string
      */
     public function getRowUrl($item)
@@ -231,6 +220,7 @@ class Post extends Extended implements TabInterface
 
     /**
      * @param \Magento\Backend\Block\Widget\Grid\Column $column
+     *
      * @return $this
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -243,10 +233,8 @@ class Post extends Extended implements TabInterface
             }
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('main_table.post_id', ['in' => $postIds]);
-            } else {
-                if ($postIds) {
-                    $this->getCollection()->addFieldToFilter('main_table.post_id', ['nin' => $postIds]);
-                }
+            } elseif ($postIds) {
+                $this->getCollection()->addFieldToFilter('main_table.post_id', ['nin' => $postIds]);
             }
         } else {
             parent::_addColumnFilterToCollection($column);

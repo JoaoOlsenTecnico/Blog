@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -51,6 +51,7 @@ abstract class Topic extends Action
 
     /**
      * Topic constructor.
+     *
      * @param \Mageplaza\Blog\Model\TopicFactory $topicFactory
      * @param \Magento\Framework\Registry $coreRegistry
      * @param \Magento\Backend\App\Action\Context $context
@@ -59,8 +60,7 @@ abstract class Topic extends Action
         Context $context,
         Registry $coreRegistry,
         TopicFactory $topicFactory
-    )
-    {
+    ) {
         $this->topicFactory = $topicFactory;
         $this->coreRegistry = $coreRegistry;
 
@@ -69,6 +69,7 @@ abstract class Topic extends Action
 
     /**
      * @param bool $register
+     *
      * @return bool|\Mageplaza\Blog\Model\Topic
      */
     protected function initTopic($register = false)

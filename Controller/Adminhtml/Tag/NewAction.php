@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -38,14 +38,14 @@ class NewAction extends Action
 
     /**
      * NewAction constructor.
+     *
      * @param \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory
      * @param \Magento\Backend\App\Action\Context $context
      */
     public function __construct(
         ForwardFactory $resultForwardFactory,
         Context $context
-    )
-    {
+    ) {
         $this->resultForwardFactory = $resultForwardFactory;
 
         parent::__construct($context);

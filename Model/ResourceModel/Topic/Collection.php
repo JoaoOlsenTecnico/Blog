@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -78,6 +78,7 @@ class Collection extends AbstractCollection
      * @param string $valueField
      * @param string $labelField
      * @param array $additional
+     *
      * @return array
      */
     protected function _toOptionArray($valueField = 'topic_id', $labelField = 'name', $additional = [])
@@ -87,6 +88,7 @@ class Collection extends AbstractCollection
 
     /**
      * @param $topicIds
+     *
      * @return $this
      */
     public function addIdFilter($topicIds)

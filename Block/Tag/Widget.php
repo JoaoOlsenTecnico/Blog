@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -49,6 +49,7 @@ class Widget extends Frontend
 
     /**
      * @param $tag
+     *
      * @return string
      */
     public function getTagUrl($tag)
@@ -60,6 +61,7 @@ class Widget extends Frontend
      * get tags size based on num of post
      *
      * @param $tag
+     *
      * @return float|string
      */
     public function getTagSize($tag)

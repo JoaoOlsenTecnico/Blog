@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -51,6 +51,7 @@ abstract class Category extends Action
 
     /**
      * Category constructor.
+     *
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\Registry $coreRegistry
      * @param \Mageplaza\Blog\Model\CategoryFactory $categoryFactory
@@ -59,8 +60,7 @@ abstract class Category extends Action
         Context $context,
         Registry $coreRegistry,
         CategoryFactory $categoryFactory
-    )
-    {
+    ) {
         $this->categoryFactory = $categoryFactory;
         $this->coreRegistry = $coreRegistry;
 
@@ -69,6 +69,7 @@ abstract class Category extends Action
 
     /**
      * @param bool $register
+     *
      * @return bool|\Mageplaza\Blog\Model\Category
      */
     public function initCategory($register = false)

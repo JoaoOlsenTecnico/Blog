@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -25,10 +25,10 @@ use Magento\Backend\App\Action\Context;
 use Magento\Backend\Helper\Js;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Registry;
+use Magento\Framework\Stdlib\DateTime\DateTime;
 use Mageplaza\Blog\Controller\Adminhtml\Post;
 use Mageplaza\Blog\Helper\Image;
 use Mageplaza\Blog\Model\PostFactory;
-use Magento\Framework\Stdlib\DateTime\DateTime;
 
 /**
  * Class Save
@@ -47,6 +47,7 @@ class Save extends Post
      * @var DateTime
      */
     public $date;
+
     /**
      * @var \Mageplaza\Blog\Helper\Image
      */
@@ -54,6 +55,7 @@ class Save extends Post
 
     /**
      * Save constructor.
+     *
      * @param Context $context
      * @param Registry $registry
      * @param PostFactory $postFactory
@@ -68,11 +70,11 @@ class Save extends Post
         Js $jsHelper,
         Image $imageHelper,
         DateTime $date
-    )
-    {
+    ) {
         $this->jsHelper = $jsHelper;
         $this->imageHelper = $imageHelper;
         $this->date = $date;
+
         parent::__construct($postFactory, $registry, $context);
     }
 
@@ -127,6 +129,7 @@ class Save extends Post
     /**
      * @param $post
      * @param array $data
+     *
      * @return $this
      * @throws \Magento\Framework\Exception\FileSystemException
      */
@@ -134,8 +137,9 @@ class Save extends Post
     {
         $this->imageHelper->uploadImage($data, 'image', Image::TEMPLATE_MEDIA_TYPE_POST, $post->getImage());
 
-        //set specify field data
+        /** Set specify field data */
         $timezone = $this->_objectManager->create('Magento\Framework\Stdlib\DateTime\TimezoneInterface');
+        $data['publish_date'] .= ' ' . $data['publish_time'][0] . ':' . $data['publish_time'][1] . ':' . $data['publish_time'][2];
         $data['publish_date'] = $timezone->convertConfigTimeToUtc(isset($data['publish_date']) ? $data['publish_date'] : null);
         $data['modifier_id'] = $this->_auth->getUser()->getId();
         $data['categories_ids'] = (isset($data['categories_ids']) && $data['categories_ids']) ? explode(',', $data['categories_ids']) : [];
@@ -165,6 +169,12 @@ class Save extends Post
             $post->setProductsData(
                 $this->jsHelper->decodeGridSerializedInput($products)
             );
+        } else {
+            $prodcutData = [];
+            foreach ($post->getProductsPosition() as $key => $value) {
+                $prodcutData[$key] = ['position' => $value];
+            }
+            $post->setProductsData($prodcutData);
         }
 
         return $this;

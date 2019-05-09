@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -49,6 +49,7 @@ class InlineEdit extends Action
 
     /**
      * InlineEdit constructor.
+     *
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\Controller\Result\JsonFactory $jsonFactory
      * @param \Mageplaza\Blog\Model\PostFactory $postFactory
@@ -57,8 +58,7 @@ class InlineEdit extends Action
         Context $context,
         JsonFactory $jsonFactory,
         PostFactory $postFactory
-    )
-    {
+    ) {
         $this->jsonFactory = $jsonFactory;
         $this->postFactory = $postFactory;
 
@@ -78,7 +78,7 @@ class InlineEdit extends Action
         if (!($this->getRequest()->getParam('isAjax') && !empty($postItems))) {
             return $resultJson->setData([
                 'messages' => [__('Please correct the data sent.')],
-                'error' => true,
+                'error'    => true,
             ]);
         }
 
@@ -106,7 +106,7 @@ class InlineEdit extends Action
 
         return $resultJson->setData([
             'messages' => $messages,
-            'error' => $error
+            'error'    => $error
         ]);
     }
 
@@ -115,6 +115,7 @@ class InlineEdit extends Action
      *
      * @param \Mageplaza\Blog\Model\Post $post
      * @param string $errorText
+     *
      * @return string
      */
     public function getErrorWithPostId(\Mageplaza\Blog\Model\Post $post, $errorText)

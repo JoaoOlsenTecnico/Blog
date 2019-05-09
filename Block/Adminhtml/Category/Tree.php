@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -46,6 +46,7 @@ class Tree extends \Magento\Catalog\Block\Adminhtml\Category\Tree
 
     /**
      * Tree constructor.
+     *
      * @param \Magento\Backend\Block\Template\Context $context
      * @param \Magento\Catalog\Model\ResourceModel\Category\Tree $categoryTree
      * @param \Magento\Framework\Registry $registry
@@ -68,8 +69,7 @@ class Tree extends \Magento\Catalog\Block\Adminhtml\Category\Tree
         BlogTreeResource $blogCategoryTree,
         CategoryFactory $blogCategoryFactory,
         array $data = []
-    )
-    {
+    ) {
         parent::__construct($context, $categoryTree, $registry, $categoryFactory, $jsonEncoder, $resourceHelper, $backendSession, $data);
 
         $this->_categoryTree = $blogCategoryTree;
@@ -95,6 +95,7 @@ class Tree extends \Magento\Catalog\Block\Adminhtml\Category\Tree
 
     /**
      * @param array $args
+     *
      * @return string
      */
     public function getSaveUrl(array $args = [])
@@ -119,6 +120,7 @@ class Tree extends \Magento\Catalog\Block\Adminhtml\Category\Tree
     /**
      * @param null $parentNodeCategory
      * @param null $store
+     *
      * @return array
      */
     public function getTree($parentNodeCategory = null, $store = null)
@@ -133,6 +135,7 @@ class Tree extends \Magento\Catalog\Block\Adminhtml\Category\Tree
      *
      * @param \Magento\Framework\Data\Tree\Node|array $node
      * @param int $level
+     *
      * @return string
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @SuppressWarnings(PHPMD.NPathComplexity)

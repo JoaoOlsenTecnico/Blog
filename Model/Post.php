@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -210,6 +210,7 @@ class Post extends AbstractModel
 
     /**
      * Post constructor.
+     *
      * @param \Magento\Framework\Model\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param \Magento\Framework\Stdlib\DateTime $dateTime
@@ -238,8 +239,7 @@ class Post extends AbstractModel
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null,
         array $data = []
-    )
-    {
+    ) {
         $this->tagCollectionFactory = $tagCollectionFactory;
         $this->topicCollectionFactory = $topicCollectionFactory;
         $this->categoryCollectionFactory = $categoryCollectionFactory;
@@ -272,7 +272,7 @@ class Post extends AbstractModel
                 ->load($this->getId(), 'post_id');
             if (!$trafficModel->getId()) {
                 $trafficModel->setData([
-                    'post_id' => $this->getId(),
+                    'post_id'      => $this->getId(),
                     'numbers_view' => 0
                 ])->save();
             }
@@ -283,6 +283,7 @@ class Post extends AbstractModel
 
     /**
      * @param bool $shorten
+     *
      * @return mixed|string
      */
     public function getShortDescription($shorten = false)
@@ -428,11 +429,13 @@ class Post extends AbstractModel
 
             $this->setData('topic_ids', $ids);
         }
+
         return (array)$this->_getData('topic_ids');
     }
 
     /**
      * @param null $limit
+     *
      * @return ResourceModel\Post\Collection|null
      * @throws \Magento\Framework\Exception\LocalizedException
      */

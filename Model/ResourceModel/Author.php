@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -43,14 +43,14 @@ class Author extends AbstractDb
 
     /**
      * Author constructor.
+     *
      * @param \Magento\Framework\Model\ResourceModel\Db\Context $context
      * @param \Mageplaza\Blog\Helper\Data $helperData
      */
     public function __construct(
         Context $context,
         Data $helperData
-    )
-    {
+    ) {
         $this->helperData = $helperData;
         parent::__construct($context);
     }

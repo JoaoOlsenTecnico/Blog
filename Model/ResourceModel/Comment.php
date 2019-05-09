@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -41,6 +41,7 @@ class Comment extends AbstractDb
 
     /**
      * @param \Magento\Framework\Model\AbstractModel $object
+     *
      * @return $this
      */
     protected function _beforeSave(\Magento\Framework\Model\AbstractModel $object)
@@ -57,6 +58,7 @@ class Comment extends AbstractDb
      *
      * @param $importSource
      * @param $oldId
+     *
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -73,6 +75,7 @@ class Comment extends AbstractDb
 
     /**
      * @param $importType
+     *
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function deleteImportItems($importType)

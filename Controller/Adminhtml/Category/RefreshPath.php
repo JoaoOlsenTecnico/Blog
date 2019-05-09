@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -42,6 +42,7 @@ class RefreshPath extends Category
 
     /**
      * RefreshPath constructor.
+     *
      * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
      * @param \Mageplaza\Blog\Model\CategoryFactory $categoryFactory
      * @param \Magento\Framework\Registry $coreRegistry
@@ -52,8 +53,7 @@ class RefreshPath extends Category
         Registry $coreRegistry,
         CategoryFactory $categoryFactory,
         JsonFactory $resultJsonFactory
-    )
-    {
+    ) {
         $this->resultJsonFactory = $resultJsonFactory;
 
         parent::__construct($context, $coreRegistry, $categoryFactory);

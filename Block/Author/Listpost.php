@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -77,16 +77,16 @@ class Listpost extends \Mageplaza\Blog\Block\Listpost
             $author = $this->getAuthor();
             if ($author) {
                 $breadcrumbs->addCrumb($author->getUrlKey(), [
-                        'label' => __('Author'),
-                        'title' => __('Author')
-                    ]
-                );
+                    'label' => __('Author'),
+                    'title' => __('Author')
+                ]);
             }
         }
     }
 
     /**
      * @param bool $meta
+     *
      * @return array
      */
     public function getBlogTitle($meta = false)
@@ -99,6 +99,7 @@ class Listpost extends \Mageplaza\Blog\Block\Listpost
 
         if ($meta) {
             array_push($blogTitle, ucfirst($author->getName()));
+
             return $blogTitle;
         }
 

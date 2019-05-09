@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -54,6 +54,7 @@ class Topic extends Multiselect
 
     /**
      * Topic constructor.
+     *
      * @param Factory $factoryElement
      * @param CollectionFactory $factoryCollection
      * @param Escaper $escaper
@@ -70,8 +71,7 @@ class Topic extends Multiselect
         AuthorizationInterface $authorization,
         UrlInterface $urlBuilder,
         array $data = []
-    )
-    {
+    ) {
         $this->collectionFactory = $collectionFactory;
         $this->authorization = $authorization;
         $this->_urlBuilder = $urlBuilder;
@@ -128,7 +128,6 @@ class Topic extends Multiselect
             $topicById[$topic->getId()]['value'] = $topic->getId();
             $topicById[$topic->getId()]['is_active'] = 1;
             $topicById[$topic->getId()]['label'] = $topic->getName();
-
         }
 
         return $topicById;

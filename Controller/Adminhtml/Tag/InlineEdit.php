@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -45,6 +45,7 @@ class InlineEdit extends Action
 
     /**
      * InlineEdit constructor.
+     *
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\Controller\Result\JsonFactory $jsonFactory
      * @param \Mageplaza\Blog\Model\TagFactory $tagFactory
@@ -53,10 +54,10 @@ class InlineEdit extends Action
         Context $context,
         JsonFactory $jsonFactory,
         TagFactory $tagFactory
-    )
-    {
+    ) {
         $this->jsonFactory = $jsonFactory;
         $this->tagFactory = $tagFactory;
+
         parent::__construct($context);
     }
 
@@ -73,7 +74,7 @@ class InlineEdit extends Action
         if (!($this->getRequest()->getParam('isAjax') && !empty($postItems))) {
             return $resultJson->setData([
                 'messages' => [__('Please correct the data sent.')],
-                'error' => true,
+                'error'    => true,
             ]);
         }
 
@@ -97,7 +98,7 @@ class InlineEdit extends Action
 
         return $resultJson->setData([
             'messages' => $messages,
-            'error' => $error
+            'error'    => $error
         ]);
     }
 
@@ -106,6 +107,7 @@ class InlineEdit extends Action
      *
      * @param \Mageplaza\Blog\Model\Tag $tag
      * @param string $errorText
+     *
      * @return string
      */
     public function getErrorWithTagId(\Mageplaza\Blog\Model\Tag $tag, $errorText)

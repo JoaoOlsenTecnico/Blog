@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -75,6 +75,7 @@ class Frontend extends Template
 
     /**
      * Frontend constructor.
+     *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Cms\Model\Template\FilterProvider $filterProvider
      * @param \Mageplaza\Blog\Model\CommentFactory $commentFactory
@@ -91,8 +92,7 @@ class Frontend extends Template
         CustomerRepositoryInterface $customerRepository,
         HelperData $helperData,
         array $data = []
-    )
-    {
+    ) {
         $this->filterProvider = $filterProvider;
         $this->cmtFactory = $commentFactory;
         $this->likeFactory = $likeFactory;
@@ -105,6 +105,7 @@ class Frontend extends Template
 
     /**
      * @param $content
+     *
      * @return string
      * @throws \Exception
      */
@@ -116,6 +117,7 @@ class Frontend extends Template
     /**
      * @param $image
      * @param string $type
+     *
      * @return string
      */
     public function getImageUrl($image, $type = Image::TEMPLATE_MEDIA_TYPE_POST)
@@ -129,6 +131,7 @@ class Frontend extends Template
     /**
      * @param $urlKey
      * @param null $type
+     *
      * @return string
      */
     public function getRssUrl($urlKey, $type = null)
@@ -145,6 +148,7 @@ class Frontend extends Template
 
     /**
      * @param $post
+     *
      * @return \Magento\Framework\Phrase|string
      */
     public function getPostInfo($post)
@@ -166,7 +170,9 @@ class Frontend extends Template
 
     /**
      * get list category html of post
+     *
      * @param $post
+     *
      * @return null|string
      */
     public function getPostCategoryHtml($post)
@@ -188,6 +194,7 @@ class Frontend extends Template
     /**
      * @param $date
      * @param bool $monthly
+     *
      * @return false|string
      */
     public function getDateFormat($date, $monthly = false)
@@ -201,6 +208,7 @@ class Frontend extends Template
      * @param $image
      * @param null $size
      * @param string $type
+     *
      * @return string
      */
     public function resizeImage($image, $size = null, $type = Image::TEMPLATE_MEDIA_TYPE_POST)

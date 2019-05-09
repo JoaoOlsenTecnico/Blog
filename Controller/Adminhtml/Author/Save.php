@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -40,6 +40,7 @@ class Save extends Author
 
     /**
      * Save constructor.
+     *
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param \Mageplaza\Blog\Model\AuthorFactory $authorFactory
@@ -50,8 +51,7 @@ class Save extends Author
         Registry $registry,
         AuthorFactory $authorFactory,
         Image $imageHelper
-    )
-    {
+    ) {
         $this->imageHelper = $imageHelper;
 
         parent::__construct($context, $registry, $authorFactory);
@@ -70,7 +70,6 @@ class Save extends Author
             $author = $this->initAuthor();
 
             $this->imageHelper->uploadImage($data, 'image', Image::TEMPLATE_MEDIA_TYPE_AUTH, $author->getImage());
-
             if (!empty($data)) {
                 $author->addData($data);
             }

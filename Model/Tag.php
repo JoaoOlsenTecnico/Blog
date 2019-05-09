@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -91,6 +91,7 @@ class Tag extends AbstractModel
 
     /**
      * Tag constructor.
+     *
      * @param Context $context
      * @param Registry $registry
      * @param CollectionFactory $postCollectionFactory
@@ -107,10 +108,10 @@ class Tag extends AbstractModel
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null,
         array $data = []
-    )
-    {
+    ) {
         $this->postCollectionFactory = $postCollectionFactory;
         $this->tagCollectionFactory = $tagCollectionFactory;
+
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
 

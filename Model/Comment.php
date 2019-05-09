@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -26,8 +26,8 @@ use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\Context;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
 use Magento\Framework\Registry;
-use Mageplaza\Blog\Model\ResourceModel\Post\CollectionFactory;
 use Mageplaza\Blog\Model\ResourceModel\Comment\CollectionFactory as CommentCollectionFactory;
+use Mageplaza\Blog\Model\ResourceModel\Post\CollectionFactory;
 
 /**
  * Class Comment
@@ -74,6 +74,7 @@ class Comment extends AbstractModel
 
     /**
      * Comment constructor.
+     *
      * @param Context $context
      * @param Registry $registry
      * @param CollectionFactory $postCollectionFactory
@@ -90,10 +91,10 @@ class Comment extends AbstractModel
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null,
         array $data = []
-    )
-    {
+    ) {
         $this->postCollectionFactory = $postCollectionFactory;
         $this->commentCollectionFactory = $commentCollectionFactory;
+
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
 

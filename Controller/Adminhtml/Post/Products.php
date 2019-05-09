@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -40,6 +40,7 @@ class Products extends Post
 
     /**
      * Products constructor.
+     *
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Mageplaza\Blog\Model\PostFactory $productFactory
      * @param \Magento\Framework\Registry $registry
@@ -50,8 +51,7 @@ class Products extends Post
         Registry $registry,
         PostFactory $productFactory,
         LayoutFactory $resultLayoutFactory
-    )
-    {
+    ) {
         parent::__construct($productFactory, $registry, $context);
 
         $this->resultLayoutFactory = $resultLayoutFactory;

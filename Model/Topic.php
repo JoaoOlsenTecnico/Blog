@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -103,6 +103,7 @@ class Topic extends AbstractModel
 
     /**
      * Topic constructor.
+     *
      * @param Context $context
      * @param Registry $registry
      * @param CollectionFactory $postCollectionFactory
@@ -119,10 +120,10 @@ class Topic extends AbstractModel
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null,
         array $data = []
-    )
-    {
+    ) {
         $this->postCollectionFactory = $postCollectionFactory;
         $this->topicCollectionFactory = $topicCollectionFactory;
+
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
 

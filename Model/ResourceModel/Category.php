@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -61,6 +61,7 @@ class Category extends AbstractDb
 
     /**
      * Category constructor.
+     *
      * @param \Mageplaza\Blog\Helper\Data $helperData
      * @param \Magento\Framework\Stdlib\DateTime\DateTime $date
      * @param \Magento\Framework\Event\ManagerInterface $eventManager
@@ -71,8 +72,7 @@ class Category extends AbstractDb
         DateTime $date,
         ManagerInterface $eventManager,
         Data $helperData
-    )
-    {
+    ) {
         $this->helperData = $helperData;
         $this->date = $date;
         $this->eventManager = $eventManager;
@@ -96,6 +96,7 @@ class Category extends AbstractDb
      * Retrieves Blog Category Name from DB by passed id.
      *
      * @param $id
+     *
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -114,6 +115,7 @@ class Category extends AbstractDb
      * Before save call back
      *
      * @param \Magento\Framework\Model\AbstractModel $object
+     *
      * @return $this
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -173,6 +175,7 @@ class Category extends AbstractDb
      * After save call back
      *
      * @param \Magento\Framework\Model\AbstractModel $object
+     *
      * @return $this
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -190,6 +193,7 @@ class Category extends AbstractDb
 
     /**
      * @param $path
+     *
      * @return int|string
      */
     protected function getMaxPosition($path)
@@ -216,9 +220,49 @@ class Category extends AbstractDb
     }
 
     /**
+     * Check category url key is exists
+     *
+     * @param $urlKey
+     *
+     * @return string
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function isDuplicateUrlKey($urlKey)
+    {
+        $adapter = $this->getConnection();
+        $select = $adapter->select()
+            ->from($this->getMainTable(), 'category_id')
+            ->where('url_key = :url_key');
+        $binds = ['url_key' => $urlKey];
+
+        return $adapter->fetchOne($select, $binds);
+    }
+
+    /**
+     * Check is imported category
+     *
+     * @param $importSource
+     * @param $oldId
+     *
+     * @return string
+     * @throws \Magento\Framework\Exception\LocalizedException
+     */
+    public function isImported($importSource, $oldId)
+    {
+        $adapter = $this->getConnection();
+        $select = $adapter->select()
+            ->from($this->getMainTable(), 'category_id')
+            ->where('import_source = :import_source');
+        $binds = ['import_source' => $importSource . '-' . $oldId];
+
+        return $adapter->fetchOne($select, $binds);
+    }
+
+    /**
      * Update path field
      *
      * @param $object
+     *
      * @return $this
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -238,6 +282,7 @@ class Category extends AbstractDb
 
     /**
      * @param \Magento\Framework\Model\AbstractModel $object
+     *
      * @return $this
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -263,6 +308,7 @@ class Category extends AbstractDb
 
     /**
      * @param \Magento\Framework\DataObject $object
+     *
      * @return $this
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -297,6 +343,7 @@ class Category extends AbstractDb
      * @param \Mageplaza\Blog\Model\Category $category
      * @param \Mageplaza\Blog\Model\Category $newParent
      * @param null $afterCategoryId
+     *
      * @return $this
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -304,8 +351,7 @@ class Category extends AbstractDb
         \Mageplaza\Blog\Model\Category $category,
         \Mageplaza\Blog\Model\Category $newParent,
         $afterCategoryId = null
-    )
-    {
+    ) {
         $childrenCount = $this->getChildrenCount($category->getId()) + 1;
         $table = $this->getMainTable();
         $adapter = $this->getConnection();
@@ -331,7 +377,6 @@ class Category extends AbstractDb
         );
 
         $position = $this->processPositions($category, $newParent, $afterCategoryId);
-
         $newPath = sprintf('%s/%s', $newParent->getPath(), $category->getId());
         $newLevel = $newParent->getLevel() + 1;
         $levelDisposition = $newLevel - $category->getLevel();
@@ -342,11 +387,11 @@ class Category extends AbstractDb
         $adapter->update(
             $table,
             [
-                'path' => 'REPLACE(' . $pathField . ',' . $adapter->quote(
-                        $category->getPath() . '/'
-                    ) . ', ' . $adapter->quote(
-                        $newPath . '/'
-                    ) . ')',
+                'path'  => 'REPLACE(' . $pathField . ',' . $adapter->quote(
+                    $category->getPath() . '/'
+                ) . ', ' . $adapter->quote(
+                    $newPath . '/'
+                ) . ')',
                 'level' => $levelFiled . ' + ' . $levelDisposition
             ],
             [$pathField . ' LIKE ?' => $category->getPath() . '/%']
@@ -355,14 +400,14 @@ class Category extends AbstractDb
          * Update moved Blog Category data
          */
         $data = [
-            'path' => $newPath,
-            'level' => $newLevel,
-            'position' => $position,
+            'path'      => $newPath,
+            'level'     => $newLevel,
+            'position'  => $position,
             'parent_id' => $newParent->getId(),
         ];
         $adapter->update($table, $data, ['category_id = ?' => $category->getId()]);
 
-        // Update Blog Category object to new data
+        /** Update Blog Category object to new data */
         $category->addData($data);
         $category->unsetData('path_ids');
 
@@ -373,6 +418,7 @@ class Category extends AbstractDb
      * @param \Mageplaza\Blog\Model\Category $category
      * @param \Mageplaza\Blog\Model\Category $newParent
      * @param $afterCategoryId
+     *
      * @return int|string
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -380,39 +426,57 @@ class Category extends AbstractDb
         \Mageplaza\Blog\Model\Category $category,
         \Mageplaza\Blog\Model\Category $newParent,
         $afterCategoryId
-    )
-    {
+    ) {
         $table = $this->getMainTable();
-        $adapter = $this->getConnection();
-        $positionField = $adapter->quoteIdentifier('position');
-
-        $bind = ['position' => $positionField . ' - 1'];
-        $where = [
-            'parent_id = ?' => $category->getParentId(),
-            $positionField . ' > ?' => $category->getPosition(),
-        ];
-        $adapter->update($table, $bind, $where);
-
-        /**
-         * Prepare position value
-         */
-        if ($afterCategoryId) {
-            $select = $adapter->select()->from($table, 'position')->where('category_id = :category_id');
-            $position = $adapter->fetchOne($select, ['category_id' => $afterCategoryId]);
-            $position++;
+        $connect = $this->getConnection();
+        /** Get old category position */
+        $positionOld = $category->getPosition();
+        /** Get new category position */
+        if (empty($afterCategoryId)) {
+            $positionNew = 1;
         } else {
-            $position = 1;
+            $select = $connect->select()->from($table, 'position')->where('category_id = :category_id');
+            $positionNew = $connect->fetchOne($select, ['category_id' => $afterCategoryId]);
         }
 
-        $bind = ['position' => $positionField . ' + 1'];
-        $where = ['parent_id = ?' => $newParent->getId(), $positionField . ' >= ?' => $position];
-        $adapter->update($table, $bind, $where);
+        /** Update position when the item is moved */
+        /** Move to other category parent */
+        if ($category->getParentId() != $newParent->getId()) {
+            if ($afterCategoryId == 0) {
+                $positionNew = 0;
+            }
+            $positionNew++;
+            $sql = "UPDATE `" . $table . "` SET `position`= (`position`-1) WHERE `parent_id`= " . $category->getParentId() . " AND `position` >= " . $positionOld;
+            $connect->query($sql);
+            $sql = "UPDATE `" . $table . "` SET `position`= (`position`+1) WHERE `parent_id`= " . $newParent->getId() . " AND `position` >= " . $positionNew;
+            $connect->query($sql);
+        } else {
+            /** Move in the same parent */
+            /** Move down */
+            if ($positionNew > $positionOld) {
+                $sql = "UPDATE `" . $table . "` SET `position`= (`position`-1) WHERE `parent_id`= " . $newParent->getId() . " AND `position` <= " . $positionNew;
+                $connect->query($sql);
+                $sql = "UPDATE `" . $table . "` SET `position`= (`position`+1) WHERE `parent_id`= " . $newParent->getId() . " AND `position` < " . $positionOld;
+                $connect->query($sql);
+            } else {
+                /** Move up */
+                $positionNew++;
+                if (empty($afterCategoryId)) {
+                    $positionNew = 1;
+                }
+                $sql = "UPDATE `" . $table . "` SET `position`= (`position`+1) WHERE `parent_id`= " . $newParent->getId() . " AND `position` >= " . $positionNew;
+                $connect->query($sql);
+                $sql = "UPDATE `" . $table . "` SET `position`= (`position`-1) WHERE `parent_id`= " . $newParent->getId() . " AND `position` > " . $positionOld;
+                $connect->query($sql);
+            }
+        }
 
-        return $position;
+        return $positionNew;
     }
 
     /**
      * @param $categoryId
+     *
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -431,6 +495,7 @@ class Category extends AbstractDb
 
     /**
      * @param \Mageplaza\Blog\Model\Category $category
+     *
      * @return array
      */
     public function getPostsPosition(\Mageplaza\Blog\Model\Category $category)
@@ -449,6 +514,7 @@ class Category extends AbstractDb
 
     /**
      * @param \Mageplaza\Blog\Model\Category $category
+     *
      * @return $this
      */
     public function savePostRelation(\Mageplaza\Blog\Model\Category $category)
@@ -480,8 +546,8 @@ class Category extends AbstractDb
             foreach ($insert as $postId => $position) {
                 $data[] = [
                     'category_id' => (int)$id,
-                    'post_id' => (int)$postId,
-                    'position' => (int)$position
+                    'post_id'     => (int)$postId,
+                    'position'    => (int)$position
                 ];
             }
             $adapter->insertMultiple($this->categoryPostTable, $data);
@@ -507,52 +573,5 @@ class Category extends AbstractDb
         }
 
         return $this;
-    }
-
-    /**
-     * Check category url key is exists
-     *
-     * @param $urlKey
-     * @return string
-     * @throws \Magento\Framework\Exception\LocalizedException
-     */
-    public function isDuplicateUrlKey($urlKey)
-    {
-        $adapter = $this->getConnection();
-        $select = $adapter->select()
-            ->from($this->getMainTable(), 'category_id')
-            ->where('url_key = :url_key');
-        $binds = ['url_key' => $urlKey];
-
-        return $adapter->fetchOne($select, $binds);
-    }
-
-    /**
-     * Check is imported category
-     *
-     * @param $importSource
-     * @param $oldId
-     * @return string
-     * @throws \Magento\Framework\Exception\LocalizedException
-     */
-    public function isImported($importSource, $oldId)
-    {
-        $adapter = $this->getConnection();
-        $select = $adapter->select()
-            ->from($this->getMainTable(), 'category_id')
-            ->where('import_source = :import_source');
-        $binds = ['import_source' => $importSource . '-' . $oldId];
-
-        return $adapter->fetchOne($select, $binds);
-    }
-
-    /**
-     * @param $importType
-     * @throws \Magento\Framework\Exception\LocalizedException
-     */
-    public function deleteImportItems($importType)
-    {
-        $adapter = $this->getConnection();
-        $adapter->delete($this->getMainTable(), "`import_source` LIKE '" . $importType . "%'");
     }
 }

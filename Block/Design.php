@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -46,6 +46,7 @@ class Design extends Template
 
     /**
      * Design constructor.
+     *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Mageplaza\Blog\Helper\Data $helperData
      * @param \Magento\Framework\View\Design\Theme\ThemeProviderInterface $_themeProvider
@@ -56,8 +57,7 @@ class Design extends Template
         HelperData $helperData,
         ThemeProviderInterface $_themeProvider,
         array $data = []
-    )
-    {
+    ) {
         $this->helperData = $helperData;
         $this->_themeProvider = $_themeProvider;
 
@@ -70,14 +70,6 @@ class Design extends Template
     public function getHelper()
     {
         return $this->helperData;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function isSidebarRight()
-    {
-        return $this->helperData->getBlogConfig('sidebar/sidebar_left_right');
     }
 
     /**

@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -38,6 +38,7 @@ class Edit extends Container
 
     /**
      * Edit constructor.
+     *
      * @param \Magento\Backend\Block\Widget\Context $context
      * @param \Magento\Framework\Registry $coreRegistry
      * @param array $data
@@ -46,8 +47,7 @@ class Edit extends Container
         Context $context,
         Registry $coreRegistry,
         array $data = []
-    )
-    {
+    ) {
         $this->coreRegistry = $coreRegistry;
 
         parent::__construct($context, $data);
@@ -66,22 +66,18 @@ class Edit extends Container
 
         parent::_construct();
 
-        $this->buttonList->add(
-            'save-and-continue',
-            [
-                'label' => __('Save Change'),
-                'class' => 'save primary',
-                'data_attribute' => [
-                    'mage-init' => [
-                        'button' => [
-                            'event' => 'saveAndContinueEdit',
-                            'target' => '#edit_form'
-                        ]
+        $this->buttonList->add('save-and-continue', [
+            'label'          => __('Save Change'),
+            'class'          => 'save primary',
+            'data_attribute' => [
+                'mage-init' => [
+                    'button' => [
+                        'event'  => 'saveAndContinueEdit',
+                        'target' => '#edit_form'
                     ]
                 ]
-            ],
-            -100
-        );
+            ]
+        ], -100);
         $this->buttonList->remove('back');
         $this->buttonList->remove('save');
     }
@@ -93,7 +89,7 @@ class Edit extends Container
      */
     public function getHeaderText()
     {
-        /** @var \Mageplaza\Blog\Model\Post $post */
+        /** @var \Mageplaza\Blog\Model\Author $author */
         $author = $this->coreRegistry->registry('mageplaza_blog_author');
         if ($author->getId()) {
             return __("Edit Author '%1'", $this->escapeHtml($author->getName()));

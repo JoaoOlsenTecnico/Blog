@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -49,6 +49,7 @@ class Topmenu
 
     /**
      * Topmenu constructor.
+     *
      * @param \Mageplaza\Blog\Helper\Data $helper
      * @param \Magento\Framework\Data\TreeFactory $treeFactory
      * @param \Magento\Framework\App\RequestInterface $request
@@ -57,8 +58,7 @@ class Topmenu
         Data $helper,
         TreeFactory $treeFactory,
         RequestInterface $request
-    )
-    {
+    ) {
         $this->helper = $helper;
         $this->treeFactory = $treeFactory;
         $this->request = $request;
@@ -69,6 +69,7 @@ class Topmenu
      * @param string $outermostClass
      * @param string $childrenWrapClass
      * @param int $limit
+     *
      * @return array
      */
     public function beforeGetHtml(
@@ -76,8 +77,7 @@ class Topmenu
         $outermostClass = '',
         $childrenWrapClass = '',
         $limit = 0
-    )
-    {
+    ) {
         if ($this->helper->isEnabled() && $this->helper->getBlogConfig('general/toplinks')) {
             $subject->getMenu()
                 ->addChild(
@@ -102,11 +102,11 @@ class Topmenu
         $routeSize = sizeof($routePath);
 
         return [
-            'name' => $this->helper->getBlogConfig('general/name') ?: __('Blog'),
-            'id' => 'mpblog-node',
-            'url' => $this->helper->getBlogUrl(''),
+            'name'       => $this->helper->getBlogConfig('general/name') ?: __('Blog'),
+            'id'         => 'mpblog-node',
+            'url'        => $this->helper->getBlogUrl(''),
             'has_active' => ($identifier == 'mpblog/post/index'),
-            'is_active' => ('mpblog' == array_shift($routePath)) && ($routeSize == 3)
+            'is_active'  => ('mpblog' == array_shift($routePath)) && ($routeSize == 3)
         ];
     }
 }

@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -54,6 +54,7 @@ class Author extends Generic implements TabInterface
 
     /**
      * Author constructor.
+     *
      * @param Config $wysiwygConfig
      * @param Store $systemStore
      * @param Context $context
@@ -70,8 +71,7 @@ class Author extends Generic implements TabInterface
         FormFactory $formFactory,
         ImageHelper $imageHelper,
         array $data = []
-    )
-    {
+    ) {
         $this->wysiwygConfig = $wysiwygConfig;
         $this->systemStore = $systemStore;
         $this->imageHelper = $imageHelper;
@@ -92,61 +92,52 @@ class Author extends Generic implements TabInterface
         $form->setHtmlIdPrefix('author_');
         $form->setFieldNameSuffix('author');
 
-        $fieldset = $form->addFieldset(
-            'base_fieldset',
-            [
-                'legend' => __('Author Information'),
-                'class' => 'fieldset-wide'
-            ]
-        );
+        $fieldset = $form->addFieldset('base_fieldset', [
+            'legend' => __('Author Information'),
+            'class'  => 'fieldset-wide'
+        ]);
 
         if ($author->getId()) {
             $fieldset->addField('user_id', 'hidden', ['name' => 'user_id']);
         }
 
         $fieldset->addField('name', 'text', [
-                'name' => 'name',
-                'label' => __('Display Name'),
-                'title' => __('Display Name'),
-                'required' => true,
-                'note' => __('This name will be displayed on frontend')
-            ]
-        );
+            'name'     => 'name',
+            'label'    => __('Display Name'),
+            'title'    => __('Display Name'),
+            'required' => true,
+            'note'     => __('This name will be displayed on frontend')
+        ]);
         $fieldset->addField('short_description', 'editor', [
-                'name' => 'short_description',
-                'label' => __('Short Description'),
-                'title' => __('Short Description'),
-                'note' => __('Short Description'),
-                'config' => $this->wysiwygConfig->getConfig()
-            ]
-        );
+            'name'   => 'short_description',
+            'label'  => __('Short Description'),
+            'title'  => __('Short Description'),
+            'note'   => __('Short Description'),
+            'config' => $this->wysiwygConfig->getConfig()
+        ]);
         $fieldset->addField('image', Image::class, [
-                'name' => 'image',
-                'label' => __('Avatar'),
-                'title' => __('Avatar'),
-                'path' => $this->imageHelper->getBaseMediaPath(ImageHelper::TEMPLATE_MEDIA_TYPE_AUTH)
-            ]
-        );
+            'name'  => 'image',
+            'label' => __('Avatar'),
+            'title' => __('Avatar'),
+            'path'  => $this->imageHelper->getBaseMediaPath(ImageHelper::TEMPLATE_MEDIA_TYPE_AUTH)
+        ]);
         $fieldset->addField('url_key', 'text', [
-                'name' => 'url_key',
-                'label' => __('URL Key'),
-                'title' => __('URL Key')
-            ]
-        );
+            'name'  => 'url_key',
+            'label' => __('URL Key'),
+            'title' => __('URL Key')
+        ]);
         $fieldset->addField('facebook_link', 'text', [
-                'name' => 'facebook_link',
-                'label' => __('Facebook'),
-                'title' => __('Facebook'),
-                'note' => __('Facebook URL'),
-            ]
-        );
+            'name'  => 'facebook_link',
+            'label' => __('Facebook'),
+            'title' => __('Facebook'),
+            'note'  => __('Facebook URL'),
+        ]);
         $fieldset->addField('twitter_link', 'text', [
-                'name' => 'twitter_link',
-                'label' => __('Twitter'),
-                'title' => __('Twitter'),
-                'note' => __('Twitter URL'),
-            ]
-        );
+            'name'  => 'twitter_link',
+            'label' => __('Twitter'),
+            'title' => __('Twitter'),
+            'note'  => __('Twitter URL'),
+        ]);
 
         $form->addValues($author->getData());
         $this->setForm($form);

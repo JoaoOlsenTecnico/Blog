@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -42,6 +42,7 @@ class Posts extends Category
 
     /**
      * Posts constructor.
+     *
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\Registry $coreRegistry
      * @param \Mageplaza\Blog\Model\CategoryFactory $categoryFactory
@@ -52,8 +53,7 @@ class Posts extends Category
         Registry $coreRegistry,
         CategoryFactory $categoryFactory,
         LayoutFactory $resultLayoutFactory
-    )
-    {
+    ) {
         $this->resultLayoutFactory = $resultLayoutFactory;
 
         parent::__construct($context, $coreRegistry, $categoryFactory);

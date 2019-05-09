@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -24,10 +24,10 @@ namespace Mageplaza\Blog\Controller\Adminhtml\Import;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Registry;
-use Mageplaza\Blog\Model\Import\WordPress;
+use Mageplaza\Blog\Helper\Data as BlogHelper;
 use Mageplaza\Blog\Model\Import\AheadWorksM1;
 use Mageplaza\Blog\Model\Import\MageFanM2;
-use Mageplaza\Blog\Helper\Data as BlogHelper;
+use Mageplaza\Blog\Model\Import\WordPress;
 
 /**
  * Class Import
@@ -62,6 +62,7 @@ class Import extends Action
 
     /**
      * Import constructor.
+     *
      * @param Context $context
      * @param WordPress $wordPress
      * @param AheadWorksM1 $aheadWorksM1
@@ -76,13 +77,13 @@ class Import extends Action
         MageFanM2 $mageFanM2,
         BlogHelper $blogHelper,
         Registry $registry
-    )
-    {
+    ) {
         $this->blogHelper = $blogHelper;
         $this->_wordpressModel = $wordPress;
         $this->_aheadWorksM1Model = $aheadWorksM1;
         $this->_mageFanM2Model = $mageFanM2;
         $this->registry = $registry;
+
         parent::__construct($context);
     }
 
@@ -105,12 +106,14 @@ class Import extends Action
             default:
                 $response = $this->processImport($this->_wordpressModel, $data);
         }
+
         return $response;
     }
 
     /**
      * @param $statisticData
      * @param $messagesBlock
+     *
      * @return mixed
      */
     protected function getStatistic($statisticData, $messagesBlock, $data)
@@ -118,7 +121,8 @@ class Import extends Action
         switch ($data['behaviour']) {
             case 'replace':
                 $statisticHtml = $messagesBlock
-                    ->{'addsuccess'}(__('You have replaced and updated %1 %2 successful. Skipped %3 %2.',
+                    ->{'addsuccess'}(__(
+                        'You have replaced and updated %1 %2 successful. Skipped %3 %2.',
                         $statisticData['success_count'],
                         $statisticData['type'],
                         $statisticData['error_count']
@@ -128,26 +132,30 @@ class Import extends Action
 
             case 'delete':
                 $statisticHtml = $messagesBlock
-                    ->{'addsuccess'}(__('You have deleted %1 successful.',
+                    ->{'addsuccess'}(__(
+                        'You have deleted %1 successful.',
                         $statisticData['type']
                     ))
                     ->toHtml();
                 break;
             default:
                 $statisticHtml = $messagesBlock
-                    ->{'addsuccess'}(__('You have imported %1 %2 successful. Skipped %3 %2.',
+                    ->{'addsuccess'}(__(
+                        'You have imported %1 %2 successful. Skipped %3 %2.',
                         $statisticData['success_count'],
                         $statisticData['type'],
                         $statisticData['error_count']
                     ))
                     ->toHtml();
         }
+
         return $statisticHtml;
     }
 
     /**
      * @param $object
      * @param $data
+     *
      * @return mixed
      */
     protected function processImport($object, $data)
@@ -156,7 +164,6 @@ class Import extends Action
         $connection = mysqli_connect($data['host'], $data['user_name'], $data['password'], $data['database']);
         $messagesBlock = $this->_view->getLayout()->createBlock(\Magento\Framework\View\Element\Messages::class);
         if ($object->run($data, $connection)) {
-
             $postStatistic = $this->registry->registry('mageplaza_import_post_statistic');
             if ($postStatistic['has_data']) {
                 $statisticHtml = $this->getStatistic($postStatistic, $messagesBlock, $data);
@@ -190,12 +197,14 @@ class Import extends Action
 
             $result = ['statistic' => $statisticHtml, 'status' => 'ok'];
             mysqli_close($connection);
+
             return $this->getResponse()->representJson(BlogHelper::jsonEncode($result));
         } else {
             $statisticHtml = $messagesBlock
                 ->{'adderror'}(__('Can not make import, please check your table prefix OR import type and try again.'))
                 ->toHtml();
             $result = ['statistic' => $statisticHtml, 'status' => 'ok'];
+
             return $this->getResponse()->representJson(BlogHelper::jsonEncode($result));
         }
     }

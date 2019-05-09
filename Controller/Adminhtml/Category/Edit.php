@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -57,6 +57,7 @@ class Edit extends Category
 
     /**
      * Edit constructor.
+     *
      * @param \Magento\Framework\DataObject $dataObject
      * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
@@ -71,8 +72,7 @@ class Edit extends Category
         DataObject $dataObject,
         PageFactory $resultPageFactory,
         JsonFactory $resultJsonFactory
-    )
-    {
+    ) {
         $this->dataObject = $dataObject;
         $this->resultPageFactory = $resultPageFactory;
         $this->resultJsonFactory = $resultJsonFactory;
@@ -134,12 +134,12 @@ class Edit extends Category
 
             $layout = $resultPage->getLayout();
             $content = $layout->getBlock('mageplaza.blog.category.edit')->getFormHtml()
-                . $layout->getBlock('mageplaza.blog.category.tree')
-                    ->getBreadcrumbsJavascript($breadcrumbsPath, 'editingCategoryBreadcrumbs');
+                       . $layout->getBlock('mageplaza.blog.category.tree')
+                           ->getBreadcrumbsJavascript($breadcrumbsPath, 'editingCategoryBreadcrumbs');
             $eventResponse = $this->dataObject->addData([
-                'content' => $content,
+                'content'  => $content,
                 'messages' => $layout->getMessagesBlock()->getGroupedHtml(),
-                'toolbar' => $layout->getBlock('page.actions.toolbar')->toHtml()
+                'toolbar'  => $layout->getBlock('page.actions.toolbar')->toHtml()
             ]);
 
             $this->_eventManager->dispatch(

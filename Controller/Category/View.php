@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -50,6 +50,7 @@ class View extends Action
 
     /**
      * View constructor.
+     *
      * @param Context $context
      * @param PageFactory $resultPageFactory
      * @param ForwardFactory $resultForwardFactory
@@ -60,13 +61,12 @@ class View extends Action
         PageFactory $resultPageFactory,
         ForwardFactory $resultForwardFactory,
         HelperBlog $helperBlog
-    )
-    {
-        parent::__construct($context);
-
+    ) {
         $this->resultPageFactory = $resultPageFactory;
         $this->resultForwardFactory = $resultForwardFactory;
         $this->helperBlog = $helperBlog;
+
+        parent::__construct($context);
     }
 
     /**
@@ -76,7 +76,9 @@ class View extends Action
     {
         $id = $this->getRequest()->getParam('id');
         $category = $this->helperBlog->getFactoryByType(HelperBlog::TYPE_CATEGORY)->create()->load($id);
+        $page = $this->resultPageFactory->create();
+        $page->getConfig()->setPageLayout($this->helperBlog->getSidebarLayout());
 
-        return ($category->getEnabled()) ? $this->resultPageFactory->create() : $this->resultForwardFactory->create()->forward('noroute');
+        return ($category->getEnabled()) ? $page : $this->resultForwardFactory->create()->forward('noroute');
     }
 }

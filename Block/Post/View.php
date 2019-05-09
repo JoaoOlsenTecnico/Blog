@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -69,6 +69,7 @@ class View extends \Mageplaza\Blog\Block\Listpost
 
     /**
      * View constructor.
+     *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Cms\Model\Template\FilterProvider $filterProvider
      * @param \Mageplaza\Blog\Model\CommentFactory $commentFactory
@@ -93,8 +94,7 @@ class View extends \Mageplaza\Blog\Block\Listpost
         CategoryFactory $categoryFactory,
         PostFactory $postFactory,
         array $data = []
-    )
-    {
+    ) {
         $this->customerSession = $customerSession;
         $this->categoryFactory = $categoryFactory;
         $this->postFactory = $postFactory;
@@ -143,6 +143,7 @@ class View extends \Mageplaza\Blog\Block\Listpost
 
     /**
      * @param $topic
+     *
      * @return string
      */
     public function getTopicUrl($topic)
@@ -152,6 +153,7 @@ class View extends \Mageplaza\Blog\Block\Listpost
 
     /**
      * @param $tag
+     *
      * @return string
      */
     public function getTagUrl($tag)
@@ -161,6 +163,7 @@ class View extends \Mageplaza\Blog\Block\Listpost
 
     /**
      * @param $category
+     *
      * @return string
      */
     public function getCategoryUrl($category)
@@ -170,6 +173,7 @@ class View extends \Mageplaza\Blog\Block\Listpost
 
     /**
      * @param $code
+     *
      * @return mixed
      */
     public function helperComment($code)
@@ -189,6 +193,7 @@ class View extends \Mageplaza\Blog\Block\Listpost
 
     /**
      * @param $userId
+     *
      * @return \Magento\Customer\Api\Data\CustomerInterface
      * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
@@ -202,6 +207,7 @@ class View extends \Mageplaza\Blog\Block\Listpost
 
     /**
      * @param $cmtId
+     *
      * @return int|string
      */
     public function getCommentLikes($cmtId)
@@ -216,6 +222,7 @@ class View extends \Mageplaza\Blog\Block\Listpost
 
     /**
      * @param $cmtId
+     *
      * @return bool
      */
     public function isLiked($cmtId)
@@ -236,6 +243,7 @@ class View extends \Mageplaza\Blog\Block\Listpost
 
     /**
      * @param $postId
+     *
      * @return array
      */
     public function getPostComments($postId)
@@ -250,9 +258,20 @@ class View extends \Mageplaza\Blog\Block\Listpost
         return $result;
     }
 
+    public function commentHtml($comment)
+    {
+        $html = '';
+        foreach (explode("\n", trim($comment)) as $value) {
+            $html .= '<p>' . $value . '</p>';
+        }
+
+        return $html;
+    }
+
     /**
      * @param $comments
      * @param $cmtId
+     *
      * @throws \Magento\Framework\Exception\LocalizedException
      * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
@@ -260,7 +279,6 @@ class View extends \Mageplaza\Blog\Block\Listpost
     {
         $this->commentTree .= '<ul class="default-cmt__content__cmt-content row">';
         foreach ($comments as $comment) {
-
             if ($comment['reply_id'] == $cmtId && $comment['status'] == 1) {
                 $isReply = (bool)$comment['is_reply'];
                 $replyId = $isReply ? $comment['reply_id'] : '';
@@ -269,30 +287,30 @@ class View extends \Mageplaza\Blog\Block\Listpost
                 } else {
                     $userCmt = $this->getUserComment($comment['entity_id']);
                     $userName = $userCmt->getFirstName() . ' '
-                        . $userCmt->getLastName();
+                                . $userCmt->getLastName();
                 }
                 $countLikes = $this->getCommentLikes($comment['comment_id']);
                 $isLiked = ($this->isLiked($comment['comment_id'])) ? "mpblog-liked" : "mpblog-like";
-                $this->commentTree .= '<li id="cmt-id-' . $comment['comment_id'] . '" class="default-cmt__content__cmt-content__cmt-row cmt-row-'.$comment['comment_id'].' cmt-row col-xs-12'
-                    . ($isReply ? ' reply-row' : '') . '" data-cmt-id="'
-                    . $comment['comment_id'] . '" ' . ($replyId
+                $this->commentTree .= '<li id="cmt-id-' . $comment['comment_id'] . '" class="default-cmt__content__cmt-content__cmt-row cmt-row-' . $comment['comment_id'] . ' cmt-row col-xs-12'
+                                      . ($isReply ? ' reply-row' : '') . '" data-cmt-id="'
+                                      . $comment['comment_id'] . '" ' . ($replyId
                         ? 'data-reply-id="' . $replyId . '"' : '') . '>
                                 <div class="cmt-row__cmt-username">
-                                    <span class="cmt-row__cmt-username username username__'.$comment['comment_id'].'">'
-                    . $userName . '</span>
+                                    <span class="cmt-row__cmt-username username username__' . $comment['comment_id'] . '">'
+                                      . $userName . '</span>
                                 </div>
                                 <div class="cmt-row__cmt-content">
-                                    <p>' . $comment['content'] . '</p>
+                                   ' . $this->commentHtml($comment['content']) . '
                                 </div>
                                 <div class="cmt-row__cmt-interactions interactions">
                                     <div class="interactions__btn-actions">
                                         <a class="interactions__btn-actions action btn-like ' . $isLiked . '" data-cmt-id="'
-                    . $comment['comment_id'] . '" click="1">
+                                      . $comment['comment_id'] . '" click="1">
                                         <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                                         <span class="count-like__like-text">'
-                    . $countLikes . '</span></a>
+                                      . $countLikes . '</span></a>
                                         <a class="interactions__btn-actions action btn-reply" data-cmt-id="'
-                    . $comment['comment_id'] . '">' . __('Reply') . '</a>
+                                      . $comment['comment_id'] . '">' . __('Reply') . '</a>
                                     </div>
                                     <div class="interactions__cmt-createdat">
                                         <span>' . $this->getDateFormat($comment['created_at']) . '</span>
@@ -312,7 +330,9 @@ class View extends \Mageplaza\Blog\Block\Listpost
 
     /**
      * get tag list
+     *
      * @param Post $post
+     *
      * @return string
      */
     public function getTagList($post)
@@ -359,25 +379,24 @@ class View extends \Mageplaza\Blog\Block\Listpost
                     ->load($catId);
                 if ($category->getId()) {
                     $breadcrumbs->addCrumb($category->getUrlKey(), [
-                            'label' => $category->getName(),
-                            'title' => $category->getName(),
-                            'link' => $this->helperData->getBlogUrl($category, Data::TYPE_CATEGORY)
-                        ]
-                    );
+                        'label' => $category->getName(),
+                        'title' => $category->getName(),
+                        'link'  => $this->helperData->getBlogUrl($category, Data::TYPE_CATEGORY)
+                    ]);
                 }
             }
 
             $post = $this->getPost();
             $breadcrumbs->addCrumb($post->getUrlKey(), [
-                    'label' => $post->getName(),
-                    'title' => $post->getName()
-                ]
-            );
+                'label' => $post->getName(),
+                'title' => $post->getName()
+            ]);
         }
     }
 
     /**
      * @param bool $meta
+     *
      * @return array
      */
     public function getBlogTitle($meta = false)
@@ -404,8 +423,8 @@ class View extends \Mageplaza\Blog\Block\Listpost
     /**
      * @param $priority
      * @param $message
+     *
      * @return string
-     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getMessagesHtml($priority, $message)
     {

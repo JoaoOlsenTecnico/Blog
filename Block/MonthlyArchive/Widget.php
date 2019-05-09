@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -49,6 +49,7 @@ class Widget extends Frontend
 
     /**
      * Widget constructor.
+     *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Magento\Cms\Model\Template\FilterProvider $filterProvider
      * @param \Mageplaza\Blog\Model\CommentFactory $commentFactory
@@ -67,8 +68,7 @@ class Widget extends Frontend
         DataHelper $helperData,
         DateTime $dateTime,
         array $data = []
-    )
-    {
+    ) {
         $this->dateTime = $dateTime;
 
         parent::__construct($context, $filterProvider, $commentFactory, $likeFactory, $customerRepository, $helperData, $data);
@@ -146,6 +146,7 @@ class Widget extends Frontend
 
     /**
      * @param $month
+     *
      * @return string
      */
     public function getMonthlyUrl($month)

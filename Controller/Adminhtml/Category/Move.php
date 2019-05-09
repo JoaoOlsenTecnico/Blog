@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -57,6 +57,7 @@ class Move extends Category
 
     /**
      * Move constructor.
+     *
      * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
      * @param \Magento\Framework\View\LayoutFactory $layoutFactory
      * @param \Psr\Log\LoggerInterface $logger
@@ -71,8 +72,7 @@ class Move extends Category
         JsonFactory $resultJsonFactory,
         LayoutFactory $layoutFactory,
         LoggerInterface $logger
-    )
-    {
+    ) {
         $this->resultJsonFactory = $resultJsonFactory;
         $this->layoutFactory = $layoutFactory;
         $this->logger = $logger;
@@ -118,7 +118,7 @@ class Move extends Category
         $resultJson = $this->resultJsonFactory->create();
         $resultJson->setData([
             'messages' => $block->getGroupedHtml(),
-            'error' => $error
+            'error'    => $error
         ]);
 
         return $resultJson;

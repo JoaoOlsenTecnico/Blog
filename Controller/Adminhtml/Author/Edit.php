@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -40,6 +40,7 @@ class Edit extends Author
 
     /**
      * Edit constructor.
+     *
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param \Mageplaza\Blog\Model\AuthorFactory $authorFactory
@@ -50,8 +51,7 @@ class Edit extends Author
         Registry $registry,
         AuthorFactory $authorFactory,
         PageFactory $resultPageFactory
-    )
-    {
+    ) {
         $this->resultPageFactory = $resultPageFactory;
 
         parent::__construct($context, $registry, $authorFactory);
@@ -59,14 +59,19 @@ class Edit extends Author
 
     /**
      * @return \Magento\Backend\Model\View\Result\Page|\Magento\Framework\App\ResponseInterface|\Magento\Framework\Controller\ResultInterface|\Magento\Framework\View\Result\Page
-     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function execute()
     {
         /** @var \Mageplaza\Blog\Model\Author $author */
         $author = $this->initAuthor();
+        if (!$author) {
+            $resultRedirect = $this->resultRedirectFactory->create();
+            $resultRedirect->setPath('*');
 
-        //Set entered data if was error when we do save
+            return $resultRedirect;
+        }
+
+        /** Set entered data if was error when we do save */
         $data = $this->_session->getData('mageplaza_blog_author_data', true);
         if (!empty($data)) {
             $author->addData($data);

@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -24,6 +24,7 @@ namespace Mageplaza\Blog\Controller\SiteMap;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
+use Mageplaza\Blog\Helper\Data;
 
 /**
  * Class Index
@@ -37,18 +38,26 @@ class Index extends Action
     public $resultPageFactory;
 
     /**
+     * @var Data
+     */
+    protected $_helperBlog;
+
+    /**
      * Index constructor.
-     * @param \Magento\Framework\App\Action\Context $context
-     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
+     *
+     * @param Context $context
+     * @param PageFactory $resultPageFactory
+     * @param Data $helperData
      */
     public function __construct(
         Context $context,
-        PageFactory $resultPageFactory
-    )
-    {
-        parent::__construct($context);
-
+        PageFactory $resultPageFactory,
+        Data $helperData
+    ) {
+        $this->_helperBlog = $helperData;
         $this->resultPageFactory = $resultPageFactory;
+
+        parent::__construct($context);
     }
 
     /**
@@ -56,6 +65,9 @@ class Index extends Action
      */
     public function execute()
     {
-        return $this->resultPageFactory->create();
+        $page = $this->resultPageFactory->create();
+        $page->getConfig()->setPageLayout($this->_helperBlog->getSidebarLayout());
+
+        return $page;
     }
 }

@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -53,6 +53,7 @@ class Category extends Multiselect
 
     /**
      * Category constructor.
+     *
      * @param \Magento\Framework\Data\Form\Element\Factory $factoryElement
      * @param \Magento\Framework\Data\Form\Element\CollectionFactory $factoryCollection
      * @param \Magento\Framework\Escaper $escaper
@@ -69,8 +70,7 @@ class Category extends Multiselect
         AuthorizationInterface $authorization,
         UrlInterface $urlBuilder,
         array $data = []
-    )
-    {
+    ) {
         $this->collectionFactory = $collectionFactory;
         $this->authorization = $authorization;
         $this->_urlBuilder = $urlBuilder;
@@ -125,7 +125,7 @@ class Category extends Multiselect
 
         $categoryById = [
             CategoryModel::TREE_ROOT_ID => [
-                'value' => CategoryModel::TREE_ROOT_ID,
+                'value'    => CategoryModel::TREE_ROOT_ID,
                 'optgroup' => null,
             ],
         ];

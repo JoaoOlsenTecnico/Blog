@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -42,21 +42,18 @@ class Tree extends Dbp
      * @var string
      */
     const ID_FIELD = 'id';
-
     /**
      * Path field
      *
      * @var string
      */
     const PATH_FIELD = 'path';
-
     /**
      * Order field
      *
      * @var string
      */
     const ORDER_FIELD = 'order';
-
     /**
      * Level field
      *
@@ -122,12 +119,14 @@ class Tree extends Dbp
 
     /**
      * Tree constructor.
+     *
      * @param ManagerInterface $eventManager
      * @param \Mageplaza\Blog\Model\ResourceModel\Category\CollectionFactory $collectionFactory
      * @param Category $categoryResource
      * @param CacheInterface $cache
      * @param StoreManagerInterface $storeManager
      * @param ResourceConnection $coreResource
+     *
      * @throws \Exception
      */
     public function __construct(
@@ -137,8 +136,7 @@ class Tree extends Dbp
         CacheInterface $cache,
         StoreManagerInterface $storeManager,
         ResourceConnection $coreResource
-    )
-    {
+    ) {
         $this->eventManager = $eventManager;
         $this->collectionFactory = $collectionFactory;
         $this->categoryResource = $categoryResource;
@@ -150,8 +148,8 @@ class Tree extends Dbp
             $coreResource->getConnection('mageplaza_blog_write'),
             $coreResource->getTableName('mageplaza_blog_category'),
             [
-                Dbp::ID_FIELD => 'category_id',
-                Dbp::PATH_FIELD => 'path',
+                Dbp::ID_FIELD    => 'category_id',
+                Dbp::PATH_FIELD  => 'path',
                 Dbp::ORDER_FIELD => 'position',
                 Dbp::LEVEL_FIELD => 'level'
             ]
@@ -166,6 +164,7 @@ class Tree extends Dbp
      * @param array $exclude
      * @param boolean $toLoad
      * @param boolean $onlyActive
+     *
      * @return $this
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @SuppressWarnings(PHPMD.NPathComplexity)
@@ -176,8 +175,7 @@ class Tree extends Dbp
         $exclude = [],
         $toLoad = true,
         $onlyActive = false
-    )
-    {
+    ) {
         if ($collection === null) {
             $collection = $this->getCollection($sorted);
         } else {
@@ -225,6 +223,7 @@ class Tree extends Dbp
      * Add inactive categories ids
      *
      * @param mixed $ids
+     *
      * @return $this
      */
     public function addInactiveCategoryIds($ids)
@@ -269,6 +268,7 @@ class Tree extends Dbp
      *
      * @param Collection $collection
      * @param array $allIds
+     *
      * @return array
      */
     public function getDisabledIds($collection, $allIds)
@@ -282,6 +282,7 @@ class Tree extends Dbp
      *
      * @param Collection $collection
      * @param int $storeId
+     *
      * @return array
      */
     public function getInactiveItemIds($collection, $storeId)
@@ -294,6 +295,7 @@ class Tree extends Dbp
      * Check is Blog Category items active
      *
      * @param int $id
+     *
      * @return boolean
      * @SuppressWarnings(PHPMD.BooleanGetMethodName)
      */
@@ -307,6 +309,7 @@ class Tree extends Dbp
      * Get Categories collection
      *
      * @param boolean $sorted
+     *
      * @return Collection
      */
     public function getCollection($sorted = false)
@@ -322,6 +325,7 @@ class Tree extends Dbp
      * Clean unneeded collection
      *
      * @param Collection|array $object
+     *
      * @return void
      */
     public function clean($object)
@@ -338,6 +342,7 @@ class Tree extends Dbp
      * set collection
      *
      * @param Collection $collection
+     *
      * @return $this
      */
     public function setCollection($collection)
@@ -354,6 +359,7 @@ class Tree extends Dbp
      * get default collection
      *
      * @param boolean $sorted
+     *
      * @return Collection
      */
     public function getDefaultCollection($sorted = false)
@@ -377,6 +383,7 @@ class Tree extends Dbp
      * @param mixed $category
      * @param mixed $newParent
      * @param mixed $prevNode
+     *
      * @return void
      */
     public function move($category, $newParent, $prevNode = null)
@@ -404,6 +411,7 @@ class Tree extends Dbp
      *
      * @param array $ids
      * @param bool $addCollectionData
+     *
      * @return $this|bool
      * @SuppressWarnings(PHPMD.CyclomaticComplexity)
      * @SuppressWarnings(PHPMD.NPathComplexity)
@@ -481,6 +489,7 @@ class Tree extends Dbp
      * @param string $path
      * @param bool $addCollectionData
      * @param bool $withRootNode
+     *
      * @return array
      */
     public function loadBreadcrumbsArray($path, $addCollectionData = true, $withRootNode = false)
@@ -512,6 +521,7 @@ class Tree extends Dbp
      * Obtain select for Categories
      *
      * @param bool $sorted
+     *
      * @return \Zend_Db_Select
      */
     public function createCollectionDataSelect($sorted = true)
@@ -525,6 +535,7 @@ class Tree extends Dbp
      * Get real existing Blog Category ids by specified ids
      *
      * @param array $ids
+     *
      * @return array
      */
     public function getExistingCategoryIdsBySpecifiedIds($ids)

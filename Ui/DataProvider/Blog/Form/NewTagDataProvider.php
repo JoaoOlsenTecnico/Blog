@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_GiftCard
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -52,8 +52,7 @@ class NewTagDataProvider extends AbstractDataProvider
         UrlInterface $urlBuilder,
         array $meta = [],
         array $data = []
-    )
-    {
+    ) {
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
 
         $this->collection = $collectionFactory->create();
@@ -70,10 +69,10 @@ class NewTagDataProvider extends AbstractDataProvider
             [
                 'config' => [
                     'data' => [
-                        'is_active' => 1,
-                        'include_in_menu' => 1,
+                        'is_active'                    => 1,
+                        'include_in_menu'              => 1,
                         'return_session_messages_only' => 1,
-                        'use_config' => ['available_sort_by', 'default_sort_by']
+                        'use_config'                   => ['available_sort_by', 'default_sort_by']
                     ]
                 ]
             ]

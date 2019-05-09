@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -46,44 +46,20 @@ class Router implements RouterInterface
     public $helper;
 
     /**
-     * @var
-     */
-    protected $_request;
-
-    /**
      * @param \Magento\Framework\App\ActionFactory $actionFactory
      * @param \Mageplaza\Blog\Helper\Data $helper
      */
     public function __construct(
         ActionFactory $actionFactory,
         Data $helper
-    )
-    {
+    ) {
         $this->actionFactory = $actionFactory;
         $this->helper = $helper;
     }
 
     /**
-     * @param $controller
-     * @param $action
-     * @param array $params
-     * @return \Magento\Framework\App\ActionInterface
-     */
-    public function _forward($controller, $action, $params = [])
-    {
-        $this->_request->setControllerName($controller)
-            ->setActionName($action)
-            ->setPathInfo('/mpblog/' . $controller . '/' . $action);
-
-        foreach ($params as $key => $value) {
-            $this->_request->setParam($key, $value);
-        }
-
-        return $this->actionFactory->create('Magento\Framework\App\Action\Forward');
-    }
-
-    /**
      * @param \Magento\Framework\App\RequestInterface $request
+     *
      * @return \Magento\Framework\App\ActionInterface|null
      */
     public function match(RequestInterface $request)
@@ -180,7 +156,9 @@ class Router implements RouterInterface
 
     /**
      * check if action = rss
+     *
      * @param $identifier
+     *
      * @return bool
      */
     public function isRss($identifier)
@@ -195,6 +173,7 @@ class Router implements RouterInterface
 
     /**
      * @param $identifier
+     *
      * @return bool|null|string
      */
     public function checkRssIdentifier($identifier)
@@ -202,6 +181,7 @@ class Router implements RouterInterface
         $length = strlen(self::URL_SUFFIX_RSS_XML);
         if (substr($identifier, -$length) == self::URL_SUFFIX_RSS_XML && $this->isRss($identifier)) {
             $identifier = substr($identifier, 0, strlen($identifier) - $length);
+
             return $identifier;
         } else {
             return null;

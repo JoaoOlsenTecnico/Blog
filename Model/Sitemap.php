@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -57,7 +57,7 @@ class Sitemap extends \Magento\Sitemap\Model\Sitemap
         parent::_construct();
 
         $this->blogDataHelper = ObjectManager::getInstance()->get(Data::class);
-        $this->imageHelper = ObjectManager::getInstance()->get(Image::class);;
+        $this->imageHelper = ObjectManager::getInstance()->get(Image::class);
         $this->router = $this->blogDataHelper->getBlogConfig('general/url_prefix');
     }
 
@@ -75,20 +75,19 @@ class Sitemap extends \Magento\Sitemap\Model\Sitemap
         foreach ($postCollection as $item) {
             if (!is_null($item->getEnabled())) {
                 $images = null;
-                if ($item->getImage()) :
+                if ($item->getImage()) {
                     $imageFile = $this->imageHelper->getMediaPath($item->getImage(), Image::TEMPLATE_MEDIA_TYPE_POST);
 
                     $imagesCollection[] = new DataObject([
-                            'url' => $this->imageHelper->getMediaUrl($imageFile),
-                            'caption' => null,
-                        ]
-                    );
+                        'url'     => $this->imageHelper->getMediaUrl($imageFile),
+                        'caption' => null,
+                    ]);
                     $images = new DataObject(['collection' => $imagesCollection]);
-                endif;
+                }
                 $postSiteMapCollection[$item->getId()] = new DataObject([
-                    'id' => $item->getId(),
-                    'url' => $this->router . '/post/' . $item->getUrlKey() . $urlSuffix,
-                    'images' => $images,
+                    'id'         => $item->getId(),
+                    'url'        => $this->router . '/post/' . $item->getUrlKey() . $urlSuffix,
+                    'images'     => $images,
                     'updated_at' => $item->getUpdatedAt(),
                 ]);
             }
@@ -108,8 +107,8 @@ class Sitemap extends \Magento\Sitemap\Model\Sitemap
         foreach ($categoryCollection as $item) {
             if (!is_null($item->getEnabled())) {
                 $categorySiteMapCollection[$item->getId()] = new DataObject([
-                    'id' => $item->getId(),
-                    'url' => $this->router . '/category/' . $item->getUrlKey() . $urlSuffix,
+                    'id'         => $item->getId(),
+                    'url'        => $this->router . '/category/' . $item->getUrlKey() . $urlSuffix,
                     'updated_at' => $item->getUpdatedAt(),
                 ]);
             }
@@ -129,8 +128,8 @@ class Sitemap extends \Magento\Sitemap\Model\Sitemap
         foreach ($tagCollection as $item) {
             if (!is_null($item->getEnabled())) {
                 $tagSiteMapCollection[$item->getId()] = new DataObject([
-                    'id' => $item->getId(),
-                    'url' => $this->router . '/tag/' . $item->getUrlKey() . $urlSuffix,
+                    'id'         => $item->getId(),
+                    'url'        => $this->router . '/tag/' . $item->getUrlKey() . $urlSuffix,
                     'updated_at' => $item->getUpdatedAt(),
                 ]);
             }
@@ -150,8 +149,8 @@ class Sitemap extends \Magento\Sitemap\Model\Sitemap
         foreach ($topicCollection as $item) {
             if (!is_null($item->getEnabled())) {
                 $topicSiteMapCollection[$item->getId()] = new DataObject([
-                    'id' => $item->getId(),
-                    'url' => $this->router . '/topic/' . $item->getUrlKey() . $urlSuffix,
+                    'id'         => $item->getId(),
+                    'url'        => $this->router . '/topic/' . $item->getUrlKey() . $urlSuffix,
                     'updated_at' => $item->getUpdatedAt(),
                 ]);
             }
@@ -166,21 +165,17 @@ class Sitemap extends \Magento\Sitemap\Model\Sitemap
     public function _initSitemapItems()
     {
         $this->_sitemapItems[] = new DataObject([
-                'collection' => $this->getBlogPostsSiteMapCollection(),
-            ]
-        );
+            'collection' => $this->getBlogPostsSiteMapCollection(),
+        ]);
         $this->_sitemapItems[] = new DataObject([
-                'collection' => $this->getBlogCategoriesSiteMapCollection(),
-            ]
-        );
+            'collection' => $this->getBlogCategoriesSiteMapCollection(),
+        ]);
         $this->_sitemapItems[] = new DataObject([
-                'collection' => $this->getBlogTagsSiteMapCollection(),
-            ]
-        );
+            'collection' => $this->getBlogTagsSiteMapCollection(),
+        ]);
         $this->_sitemapItems[] = new DataObject([
-                'collection' => $this->getBlogTopicsSiteMapCollection(),
-            ]
-        );
+            'collection' => $this->getBlogTopicsSiteMapCollection(),
+        ]);
 
         parent::_initSitemapItems(); // TODO: Change the autogenerated stub
     }

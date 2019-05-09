@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -42,6 +42,7 @@ class Edit extends Post
 
     /**
      * Edit constructor.
+     *
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param \Mageplaza\Blog\Model\PostFactory $postFactory
@@ -52,8 +53,7 @@ class Edit extends Post
         Registry $registry,
         PostFactory $postFactory,
         PageFactory $resultPageFactory
-    )
-    {
+    ) {
         $this->resultPageFactory = $resultPageFactory;
 
         parent::__construct($postFactory, $registry, $context);
