@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -45,7 +45,6 @@ class Widget extends Frontend
 
     /**
      * @param $tree
-     *
      * @return \Magento\Framework\Phrase|string
      */
     public function getCategoryTreeHtml($tree)
@@ -79,7 +78,6 @@ class Widget extends Frontend
 
     /**
      * @param $category
-     *
      * @return string
      */
     public function getCategoryUrl($category)

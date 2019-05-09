@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -40,6 +40,7 @@ class RelatedProduct extends ListProduct
      * Default related product page title
      */
     const TITLE = 'Related Products';
+
     /**
      * Default limit related products
      */
@@ -57,7 +58,6 @@ class RelatedProduct extends ListProduct
 
     /**
      * RelatedProduct constructor.
-     *
      * @param \Magento\Catalog\Block\Product\Context $context
      * @param \Magento\Framework\Data\Helper\PostHelper $postDataHelper
      * @param \Magento\Catalog\Model\Layer\Resolver $layerResolver
@@ -76,7 +76,8 @@ class RelatedProduct extends ListProduct
         HelperData $helperData,
         Data $urlHelper,
         array $data = []
-    ) {
+    )
+    {
         $this->_productCollectionFactory = $productCollectionFactory;
         $this->helper = $helperData;
 

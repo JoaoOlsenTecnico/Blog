@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -40,7 +40,6 @@ class Posts extends Tag
 
     /**
      * Posts constructor.
-     *
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\Registry $registry
      * @param \Magento\Framework\View\Result\LayoutFactory $resultLayoutFactory
@@ -51,7 +50,8 @@ class Posts extends Tag
         Registry $registry,
         LayoutFactory $resultLayoutFactory,
         TagFactory $postFactory
-    ) {
+    )
+    {
         $this->resultLayoutFactory = $resultLayoutFactory;
 
         parent::__construct($context, $registry, $postFactory);

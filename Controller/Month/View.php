@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -24,7 +24,6 @@ namespace Mageplaza\Blog\Controller\Month;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\View\Result\PageFactory;
-use Mageplaza\Blog\Helper\Data;
 
 /**
  * Class View
@@ -38,26 +37,18 @@ class View extends Action
     public $resultPageFactory;
 
     /**
-     * @var Data
-     */
-    protected $_helperBlog;
-
-    /**
      * View constructor.
-     *
-     * @param Context $context
-     * @param PageFactory $resultPageFactory
-     * @param Data $helperData
+     * @param \Magento\Framework\App\Action\Context $context
+     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
      */
     public function __construct(
         Context $context,
-        PageFactory $resultPageFactory,
-        Data $helperData
-    ) {
-        $this->_helperBlog = $helperData;
-        $this->resultPageFactory = $resultPageFactory;
-
+        PageFactory $resultPageFactory
+    )
+    {
         parent::__construct($context);
+
+        $this->resultPageFactory = $resultPageFactory;
     }
 
     /**
@@ -65,9 +56,6 @@ class View extends Action
      */
     public function execute()
     {
-        $page = $this->resultPageFactory->create();
-        $page->getConfig()->setPageLayout($this->_helperBlog->getSidebarLayout());
-
-        return $page;
+        return $this->resultPageFactory->create();
     }
 }

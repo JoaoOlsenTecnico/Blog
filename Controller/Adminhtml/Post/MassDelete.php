@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -58,7 +58,8 @@ class MassDelete extends Action
         Context $context,
         Filter $filter,
         CollectionFactory $collectionFactory
-    ) {
+    )
+    {
         $this->filter = $filter;
         $this->collectionFactory = $collectionFactory;
 

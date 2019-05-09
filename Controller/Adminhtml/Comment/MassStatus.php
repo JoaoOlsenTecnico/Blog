@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -50,7 +50,6 @@ class MassStatus extends Action
 
     /**
      * MassStatus constructor.
-     *
      * @param Context $context
      * @param Filter $filter
      * @param CollectionFactory $collectionFactory
@@ -59,7 +58,8 @@ class MassStatus extends Action
         Context $context,
         Filter $filter,
         CollectionFactory $collectionFactory
-    ) {
+    )
+    {
         $this->filter = $filter;
         $this->collectionFactory = $collectionFactory;
 

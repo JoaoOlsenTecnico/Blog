@@ -15,19 +15,17 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
 namespace Mageplaza\Blog\Model\ResourceModel;
 
-use Magento\Backend\Model\Auth;
 use Magento\Framework\Event\ManagerInterface;
 use Magento\Framework\Model\ResourceModel\Db\AbstractDb;
 use Magento\Framework\Model\ResourceModel\Db\Context;
 use Magento\Framework\Stdlib\DateTime\DateTime;
 use Mageplaza\Blog\Helper\Data;
-use Mageplaza\Blog\Model\AuthorFactory;
 
 /**
  * Class Post
@@ -81,38 +79,22 @@ class Post extends AbstractDb
     public $helperData;
 
     /**
-     * @var AuthorFactory
-     */
-    protected $_authorFactory;
-
-    /**
-     * @var Auth
-     */
-    protected $_auth;
-
-    /**
      * Post constructor.
-     *
-     * @param Context $context
-     * @param DateTime $date
-     * @param ManagerInterface $eventManager
-     * @param Auth $auth
-     * @param Data $helperData
-     * @param AuthorFactory $authorFactory
+     * @param \Magento\Framework\Stdlib\DateTime\DateTime $date
+     * @param \Magento\Framework\Event\ManagerInterface $eventManager
+     * @param \Mageplaza\Blog\Helper\Data $helperData
+     * @param \Magento\Framework\Model\ResourceModel\Db\Context $context
      */
     public function __construct(
         Context $context,
         DateTime $date,
         ManagerInterface $eventManager,
-        Auth $auth,
-        Data $helperData,
-        AuthorFactory $authorFactory
-    ) {
+        Data $helperData
+    )
+    {
         $this->date = $date;
         $this->eventManager = $eventManager;
-        $this->_auth = $auth;
         $this->helperData = $helperData;
-        $this->_authorFactory = $authorFactory;
 
         parent::__construct($context);
 
@@ -134,9 +116,7 @@ class Post extends AbstractDb
 
     /**
      * Retrieves Post Name from DB by passed id.
-     *
      * @param $id
-     *
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -153,14 +133,13 @@ class Post extends AbstractDb
 
     /**
      * before save callback
-     *
      * @param \Magento\Framework\Model\AbstractModel $object
-     *
      * @return $this
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     protected function _beforeSave(\Magento\Framework\Model\AbstractModel $object)
     {
+
         if (is_array($object->getStoreIds())) {
             $object->setStoreIds(implode(',', $object->getStoreIds()));
         }
@@ -181,14 +160,12 @@ class Post extends AbstractDb
         $this->saveTopicRelation($object);
         $this->saveCategoryRelation($object);
         $this->saveProductRelation($object);
-        $this->saveAuthor();
 
         return parent::_afterSave($object);
     }
 
     /**
      * @param \Mageplaza\Blog\Model\Post $post
-     *
      * @return $this
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -215,8 +192,8 @@ class Post extends AbstractDb
             $data = [];
             foreach ($insert as $tagId) {
                 $data[] = [
-                    'post_id'  => (int)$id,
-                    'tag_id'   => (int)$tagId,
+                    'post_id' => (int)$id,
+                    'tag_id' => (int)$tagId,
                     'position' => 1
                 ];
             }
@@ -226,8 +203,7 @@ class Post extends AbstractDb
             $tagIds = array_unique(array_merge(array_keys($insert), array_keys($delete)));
             $this->eventManager->dispatch(
                 'mageplaza_blog_post_change_tags',
-                ['post' => $post, 'tag_ids' => $tagIds]
-            );
+                ['post' => $post, 'tag_ids' => $tagIds]);
         }
 
         if (!empty($insert) || !empty($delete)) {
@@ -241,7 +217,6 @@ class Post extends AbstractDb
 
     /**
      * @param \Mageplaza\Blog\Model\Post $post
-     *
      * @return $this
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -268,7 +243,7 @@ class Post extends AbstractDb
             $data = [];
             foreach ($insert as $topicId) {
                 $data[] = [
-                    'post_id'  => (int)$id,
+                    'post_id' => (int)$id,
                     'topic_id' => (int)$topicId,
                     'position' => 1
                 ];
@@ -294,7 +269,6 @@ class Post extends AbstractDb
 
     /**
      * @param \Mageplaza\Blog\Model\Post $post
-     *
      * @return $this
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -311,6 +285,7 @@ class Post extends AbstractDb
         $delete = array_diff($oldCategoryIds, $categories);
         $adapter = $this->getConnection();
 
+
         if (!empty($delete)) {
             $condition = ['category_id IN(?)' => $delete, 'post_id=?' => $id];
             $adapter->delete($this->postCategoryTable, $condition);
@@ -319,9 +294,9 @@ class Post extends AbstractDb
             $data = [];
             foreach ($insert as $categoryId) {
                 $data[] = [
-                    'post_id'     => (int)$id,
+                    'post_id' => (int)$id,
                     'category_id' => (int)$categoryId,
-                    'position'    => 1
+                    'position' => 1
                 ];
             }
             $adapter->insertMultiple($this->postCategoryTable, $data);
@@ -344,7 +319,6 @@ class Post extends AbstractDb
 
     /**
      * @param \Mageplaza\Blog\Model\Post $post
-     *
      * @return array
      */
     public function getCategoryIds(\Mageplaza\Blog\Model\Post $post)
@@ -364,7 +338,6 @@ class Post extends AbstractDb
 
     /**
      * @param \Mageplaza\Blog\Model\Post $post
-     *
      * @return array
      */
     public function getTagIds(\Mageplaza\Blog\Model\Post $post)
@@ -384,7 +357,6 @@ class Post extends AbstractDb
 
     /**
      * @param \Mageplaza\Blog\Model\Post $post
-     *
      * @return array
      */
     public function getTopicIds(\Mageplaza\Blog\Model\Post $post)
@@ -392,13 +364,11 @@ class Post extends AbstractDb
         $adapter = $this->getConnection();
         $select = $adapter->select()->from($this->postTopicTable, 'topic_id')
             ->where('post_id = ?', (int)$post->getId());
-
         return $adapter->fetchCol($select);
     }
 
     /**
      * @param \Mageplaza\Blog\Model\Post $post
-     *
      * @return $this
      */
     public function saveProductRelation(\Mageplaza\Blog\Model\Post $post)
@@ -406,41 +376,32 @@ class Post extends AbstractDb
         $post->setIsChangedProductList(false);
         $id = $post->getId();
         $products = $post->getProductsData();
-        $oldProducts = $post->getProductsPosition();
-        if (is_array($products)) {
-            $insert = array_diff_key($products, $oldProducts);
-            $delete = array_diff_key($oldProducts, $products);
-            $update = array_intersect_key($products, $oldProducts);
-            $_update = [];
-            foreach ($update as $key => $settings) {
-                if (isset($oldProducts[$key]) && $oldProducts[$key] != $settings['position']) {
-                    $_update[$key] = $settings;
-                }
-            }
-            $update = $_update;
-        }
-        $adapter = $this->getConnection();
         if ($products === null) {
-            foreach (array_keys($oldProducts) as $value) {
-                $condition = ['entity_id =?' => (int)$value, 'post_id=?' => (int)$id];
-                $adapter->delete($this->postProductTable, $condition);
-            }
-
             return $this;
         }
-        if (!empty($delete)) {
-            foreach (array_keys($delete) as $value) {
-                $condition = ['entity_id =?' => (int)$value, 'post_id=?' => (int)$id];
-                $adapter->delete($this->postProductTable, $condition);
+        $oldProducts = $post->getProductsPosition();
+        $insert = array_diff_key($products, $oldProducts);
+        $delete = array_diff_key($oldProducts, $products);
+        $update = array_intersect_key($products, $oldProducts);
+        $_update = [];
+        foreach ($update as $key => $settings) {
+            if (isset($oldProducts[$key]) && $oldProducts[$key] != $settings['position']) {
+                $_update[$key] = $settings;
             }
+        }
+        $update = $_update;
+        $adapter = $this->getConnection();
+        if (!empty($delete)) {
+            $condition = ['entity_id IN(?)' => array_keys($delete), 'post_id=?' => $id];
+            $adapter->delete($this->postProductTable, $condition);
         }
         if (!empty($insert)) {
             $data = [];
             foreach ($insert as $entityId => $position) {
                 $data[] = [
-                    'post_id'   => (int)$id,
+                    'post_id' => (int)$id,
                     'entity_id' => (int)$entityId,
-                    'position'  => (int)$position['position']
+                    'position' => (int)$position['position']
                 ];
             }
             $adapter->insertMultiple($this->postProductTable, $data);
@@ -470,7 +431,6 @@ class Post extends AbstractDb
 
     /**
      * @param \Mageplaza\Blog\Model\Post $post
-     *
      * @return array
      */
     public function getProductsPosition(\Mageplaza\Blog\Model\Post $post)
@@ -491,7 +451,6 @@ class Post extends AbstractDb
      * Check post url key is exists
      *
      * @param $urlKey
-     *
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -507,29 +466,10 @@ class Post extends AbstractDb
     }
 
     /**
-     * Save the post autho when creating post
-     */
-    public function saveAuthor()
-    {
-        $currentUser = $this->_auth->getUser();
-        $currentUserId = $currentUser->getId();
-
-        /** @var \Mageplaza\Blog\Model\Author $author */
-        $author = $this->_authorFactory->create()->load($currentUserId);
-
-        /** Create the new author if that author isn't exist */
-        if (!$author->getId()) {
-            $author->setId($currentUserId)
-                ->setName($currentUser->getName())->save();
-        }
-    }
-
-    /**
      * Check is imported post
      *
      * @param $importSource
      * @param $oldId
-     *
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -546,7 +486,6 @@ class Post extends AbstractDb
 
     /**
      * @param $importType
-     *
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function deleteImportItems($importType)

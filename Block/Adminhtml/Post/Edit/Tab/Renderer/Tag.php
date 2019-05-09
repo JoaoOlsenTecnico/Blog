@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -54,7 +54,6 @@ class Tag extends Multiselect
 
     /**
      * Tag constructor.
-     *
      * @param Factory $factoryElement
      * @param CollectionFactory $factoryCollection
      * @param Escaper $escaper
@@ -71,7 +70,8 @@ class Tag extends Multiselect
         AuthorizationInterface $authorization,
         UrlInterface $urlBuilder,
         array $data = []
-    ) {
+    )
+    {
         $this->collectionFactory = $collectionFactory;
         $this->authorization = $authorization;
         $this->_urlBuilder = $urlBuilder;
@@ -128,6 +128,7 @@ class Tag extends Multiselect
             $tagById[$tag->getId()]['value'] = $tag->getId();
             $tagById[$tag->getId()]['is_active'] = 1;
             $tagById[$tag->getId()]['label'] = $tag->getName();
+
         }
 
         return $tagById;

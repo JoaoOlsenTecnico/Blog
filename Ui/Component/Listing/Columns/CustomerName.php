@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -33,7 +33,6 @@ class CustomerName extends Column
      * Prepare Data Source
      *
      * @param array $dataSource
-     *
      * @return array
      */
     public function prepareDataSource(array $dataSource)
@@ -45,7 +44,6 @@ class CustomerName extends Column
                 }
             }
         }
-
         return $dataSource;
     }
 }

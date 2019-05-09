@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -62,7 +62,6 @@ class Save extends Topic
 
     /**
      * Save constructor.
-     *
      * @param Context $context
      * @param Registry $registry
      * @param Js $jsHelper
@@ -77,7 +76,8 @@ class Save extends Topic
         LayoutFactory $layoutFactory,
         JsonFactory $resultJsonFactory,
         TopicFactory $topicFactory
-    ) {
+    )
+    {
         $this->jsHelper = $jsHelper;
         $this->layoutFactory = $layoutFactory;
         $this->resultJsonFactory = $resultJsonFactory;
@@ -118,10 +118,10 @@ class Save extends Topic
 
             $topic->load($topic->getId());
             $topic->addData([
-                'level'     => 1,
+                'level' => 1,
                 'entity_id' => $topic->getId(),
                 'is_active' => $topic->getEnabled(),
-                'parent'    => 0
+                'parent' => 0
             ]);
 
             // to obtain truncated category name
@@ -135,7 +135,7 @@ class Save extends Topic
             return $resultJson->setData(
                 [
                     'messages' => $block->getGroupedHtml(),
-                    'error'    => $hasError,
+                    'error' => $hasError,
                     'category' => $topic->toArray(),
                 ]
             );

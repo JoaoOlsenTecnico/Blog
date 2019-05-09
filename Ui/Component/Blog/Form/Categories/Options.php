@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_GiftCard
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -42,7 +42,6 @@ class Options implements OptionSourceInterface
 
     /**
      * Options constructor.
-     *
      * @param \Mageplaza\Blog\Model\ResourceModel\Category\CollectionFactory $categoryCollectionFactory
      */
     public function __construct(CategoryCollectionFactory $categoryCollectionFactory)
@@ -69,7 +68,7 @@ class Options implements OptionSourceInterface
 
             $categoryById = [
                 Category::TREE_ROOT_ID => [
-                    'value'    => Category::TREE_ROOT_ID,
+                    'value' => Category::TREE_ROOT_ID,
                     'optgroup' => []
                 ],
             ];

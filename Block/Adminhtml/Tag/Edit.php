@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -38,7 +38,6 @@ class Edit extends Container
 
     /**
      * Edit constructor.
-     *
      * @param Context $context
      * @param Registry $coreRegistry
      * @param array $data
@@ -47,7 +46,8 @@ class Edit extends Container
         Context $context,
         Registry $coreRegistry,
         array $data = []
-    ) {
+    )
+    {
         $this->coreRegistry = $coreRegistry;
 
         parent::__construct($context, $data);
@@ -68,12 +68,12 @@ class Edit extends Container
         $this->buttonList->add(
             'save-and-continue',
             [
-                'label'          => __('Save and Continue Edit'),
-                'class'          => 'save',
+                'label' => __('Save and Continue Edit'),
+                'class' => 'save',
                 'data_attribute' => [
                     'mage-init' => [
                         'button' => [
-                            'event'  => 'saveAndContinueEdit',
+                            'event' => 'saveAndContinueEdit',
                             'target' => '#edit_form'
                         ]
                     ]

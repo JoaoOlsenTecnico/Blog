@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -23,10 +23,6 @@ namespace Mageplaza\Blog\Block\Adminhtml\Import;
 
 use Magento\Backend\Block\Widget\Form\Container;
 
-/**
- * Class Edit
- * @package Mageplaza\Blog\Block\Adminhtml\Import
- */
 class Edit extends Container
 {
     /**
@@ -45,8 +41,8 @@ class Edit extends Container
         $this->buttonList->add(
             'check-connection',
             [
-                'label'          => __('Check Connection'),
-                'class'          => 'primary',
+                'label' => __('Check Connection'),
+                'class' => 'primary',
                 'data_attribute' => [
                     'mage-init' => [
                         'button' => [
@@ -55,7 +51,7 @@ class Edit extends Container
                         ]
                     ]
                 ],
-                'onclick'        => 'mpBlogImport.initImportCheckConnection();'
+                'onclick' => 'mpBlogImport.initImportCheckConnection();'
             ],
             -100
         );

@@ -14,7 +14,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -48,9 +48,14 @@ require([
      */
     function checkGuestFormValidate() {
         if (isLogged == 'No') {
-            return $("#default-cmt__content__cmt-block__guest-form").valid();
+            if ($("#default-cmt__content__cmt-block__guest-form").valid()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
         }
-        return true;
     }
 
     /**
@@ -143,17 +148,17 @@ require([
                 // }
                 // var cmtRowContainer = $("#cmt-id-"+cmtId+" ul:last-child");
                 var cmtId = (typeof $(this).closest('.default-cmt__content__cmt-content__cmt-row').parent().parent().attr('data-cmt-id') !== 'undefined') ? $(this).closest('.default-cmt__content__cmt-content__cmt-row').parent().parent().attr('data-cmt-id') : $(this).attr('data-cmt-id'),
-                    inputCmtID = $(this).attr('data-cmt-id'),
+                    inputCmtID =  $(this).attr('data-cmt-id'),
                     cmtRowCmt = $("div").find('#cmt-row');
                 var cmtRowContainer = $(this).closest('.default-cmt__content__cmt-content__cmt-row');
-                if ($("li.cmt-row-" + cmtId).find("ul").length) {
-                    var cmtRowContainer = $("#cmt-id-" + cmtId + " ul:last-child");
+                if($("li.cmt-row-"+cmtId).find("ul").length) {
+                    var cmtRowContainer = $("#cmt-id-"+cmtId+" ul:last-child");
                 }
-                var cmtRow = cmtRowContainer.find('.row__' + inputCmtID);
-                var cmtName = $(".username__" + inputCmtID).text();
+                var cmtRow = cmtRowContainer.find('.row__'+inputCmtID);
+                var cmtName = $(".username__"+inputCmtID).text();
 
                 if (isLogged === 'Yes') {
-                    if (cmtRowCmt.length) {
+                    if(cmtRowCmt.length) {
                         cmtRowCmt.toggle();
                         $("#cmt-row").remove();
                     }
@@ -161,10 +166,10 @@ require([
                         cmtRow.toggle();
                         $("#cmt-row").remove();
                     } else {
-                        cmtRowContainer.append('<div id="cmt-row" class="cmt-row__reply-row row row__' + inputCmtID + '">' +
+                        cmtRowContainer.append('<div id="cmt-row" class="cmt-row__reply-row row row__'+inputCmtID+'">' +
                             '<div class="reply-form__form-input form-group col-xs-8 col-md-6">' +
                             '<label for="reply_cmt' + inputCmtID + '"></label>' +
-                            '<input type="text" id="reply_cmt' + inputCmtID + '" class="form-group__input form-control" placeholder="Press enter to submit reply" value="' + cmtName + ' " autofocus onfocus="this.setSelectionRange(1000,1001);"/>' +
+                            '<input type="text" id="reply_cmt' + inputCmtID + '" class="form-group__input form-control" placeholder="Press enter to submit reply" value="'+ cmtName +' " autofocus onfocus="this.setSelectionRange(1000,1001);"/>' +
                             '</div>' +
                             '</div>');
                         var input = $('#reply_cmt' + inputCmtID);
@@ -246,20 +251,12 @@ require([
         });
     }
 
-    function htmlComment(text) {
-        var html = '';
-        for (var i = 0; i < text.split("\n"); i++) {
-            html += '<p>' + i + '</p>';
-        }
-        return html;
-    }
-
     // display comment
     function displayComment(cmt, isReply) {
-        var cmtRow = '<li id="cmt-id-' + cmt.cmt_id + '" class="default-cmt__content__cmt-content__cmt-row cmt-row-' + cmt.cmt_id + ' cmt-row col-xs-12 '
+        var cmtRow = '<li id="cmt-id-' + cmt.cmt_id + '" class="default-cmt__content__cmt-content__cmt-row cmt-row-'+cmt.cmt_id+' cmt-row col-xs-12 '
             + (isReply ? ('reply-row') : '') + '" data-cmt-id="' + cmt.cmt_id + '"' + (isReply ? ('data-reply-id="' + cmt.reply_cmt + '"') : '')
             + '> <div class="cmt-row__cmt-username"> <span class="cmt-row__cmt-username username username__' + cmt.cmt_id + '">' + cmt.user_cmt
-            + '</span> </div> <div class="cmt-row__cmt-content"> <p>' + this.htmlComment(cmt.cmt_text)
+            + '</span> </div> <div class="cmt-row__cmt-content"> <p>' + cmt.cmt_text
             + '</p> </div> <div class="cmt-row__cmt-interactions interactions"> <div class="interactions__btn-actions"> <a class="interactions__btn-actions action btn-like mpblog-like" data-cmt-id="'
             + cmt.cmt_id + '" click="1"><i class="fa fa-thumbs-up" aria-hidden="true" style="margin-right: 3px"></i><span class="count-like__like-text"></span></a> <a class="interactions__btn-actions action btn-reply" data-cmt-id="'
             + cmt.cmt_id + '">' + reply + '</a>  </div> <div class="interactions__cmt-createdat"> <span>' + cmt.created_at + '</span> </div> </div> </li>';

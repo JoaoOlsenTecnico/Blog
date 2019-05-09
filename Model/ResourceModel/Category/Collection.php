@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -63,7 +63,6 @@ class Collection extends AbstractCollection
     /**
      * @param $field
      * @param null $condition
-     *
      * @return $this
      */
     public function addAttributeToFilter($field, $condition = null)
@@ -85,7 +84,6 @@ class Collection extends AbstractCollection
 
     /**
      * @param $storeId
-     *
      * @return $this
      */
     public function setProductStoreId($storeId)
@@ -95,7 +93,6 @@ class Collection extends AbstractCollection
 
     /**
      * @param $count
-     *
      * @return $this
      */
     public function setLoadProductCount($count)
@@ -105,7 +102,6 @@ class Collection extends AbstractCollection
 
     /**
      * @param $storeId
-     *
      * @return $this
      */
     public function setStoreId($storeId)
@@ -116,7 +112,6 @@ class Collection extends AbstractCollection
     /**
      * @param $attribute
      * @param bool $joinType
-     *
      * @return $this
      */
     public function addAttributeToSelect($attribute, $joinType = false)
@@ -142,7 +137,6 @@ class Collection extends AbstractCollection
      * @param string $valueField
      * @param string $labelField
      * @param array $additional
-     *
      * @return array
      */
     protected function _toOptionArray($valueField = 'category_id', $labelField = 'name', $additional = [])
@@ -154,7 +148,6 @@ class Collection extends AbstractCollection
      * add if filter
      *
      * @param $categoryIds
-     *
      * @return $this
      */
     public function addIdFilter($categoryIds)

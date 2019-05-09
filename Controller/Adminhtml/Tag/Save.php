@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -60,7 +60,6 @@ class Save extends Tag
 
     /**
      * Save constructor.
-     *
      * @param Context $context
      * @param Registry $registry
      * @param Js $jsHelper
@@ -75,7 +74,8 @@ class Save extends Tag
         LayoutFactory $layoutFactory,
         JsonFactory $resultJsonFactory,
         TagFactory $tagFactory
-    ) {
+    )
+    {
         $this->jsHelper = $jsHelper;
         $this->layoutFactory = $layoutFactory;
         $this->resultJsonFactory = $resultJsonFactory;
@@ -116,10 +116,10 @@ class Save extends Tag
 
             $tag->load($tag->getId());
             $tag->addData([
-                'level'     => 1,
+                'level' => 1,
                 'entity_id' => $tag->getId(),
                 'is_active' => $tag->getEnabled(),
-                'parent'    => 0
+                'parent' => 0
             ]);
 
             // to obtain truncated category name
@@ -131,10 +131,11 @@ class Save extends Tag
             $resultJson = $this->resultJsonFactory->create();
 
             return $resultJson->setData([
-                'messages' => $block->getGroupedHtml(),
-                'error'    => $hasError,
-                'category' => $tag->toArray(),
-            ]);
+                    'messages' => $block->getGroupedHtml(),
+                    'error' => $hasError,
+                    'category' => $tag->toArray(),
+                ]
+            );
         }
 
         $resultRedirect = $this->resultRedirectFactory->create();

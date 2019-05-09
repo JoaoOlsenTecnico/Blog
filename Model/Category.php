@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -27,8 +27,8 @@ use Magento\Framework\Model\AbstractModel;
 use Magento\Framework\Model\Context;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
 use Magento\Framework\Registry;
-use Mageplaza\Blog\Model\ResourceModel\Category\CollectionFactory as CategoryCollectionFactory;
 use Mageplaza\Blog\Model\ResourceModel\Post\CollectionFactory;
+use Mageplaza\Blog\Model\ResourceModel\Category\CollectionFactory as CategoryCollectionFactory;
 
 /**
  * @method Category setName($name)
@@ -119,7 +119,6 @@ class Category extends AbstractModel
 
     /**
      * Category constructor.
-     *
      * @param Context $context
      * @param Registry $registry
      * @param CategoryFactory $categoryFactory
@@ -138,11 +137,11 @@ class Category extends AbstractModel
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null,
         array $data = []
-    ) {
+    )
+    {
         $this->categoryFactory = $categoryFactory;
         $this->postCollectionFactory = $postCollectionFactory;
         $this->categoryCollectionFactory = $categoryCollectionFactory;
-
         parent::__construct($context, $registry, $resource, $resourceCollection, $data);
     }
 
@@ -211,7 +210,6 @@ class Category extends AbstractModel
      *
      * @param $parentId
      * @param $afterCategoryId
-     *
      * @return $this
      * @throws LocalizedException
      * @throws \Exception
@@ -242,10 +240,10 @@ class Category extends AbstractModel
 
         $eventParams = [
             $this->_eventObject => $this,
-            'parent'            => $parent,
-            'category_id'       => $this->getId(),
-            'prev_parent_id'    => $oldParentId,
-            'parent_id'         => $parentId,
+            'parent' => $parent,
+            'category_id' => $this->getId(),
+            'prev_parent_id' => $oldParentId,
+            'parent_id' => $parentId,
         ];
 
         $this->_getResource()->beginTransaction();

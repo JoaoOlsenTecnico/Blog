@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -61,7 +61,6 @@ class Tag extends AbstractDb
 
     /**
      * Tag constructor.
-     *
      * @param \Magento\Framework\Model\ResourceModel\Db\Context $context
      * @param \Magento\Framework\Event\ManagerInterface $eventManager
      * @param \Magento\Framework\Stdlib\DateTime\DateTime $date
@@ -72,7 +71,8 @@ class Tag extends AbstractDb
         ManagerInterface $eventManager,
         DateTime $date,
         Data $helperData
-    ) {
+    )
+    {
         $this->helperData = $helperData;
         $this->date = $date;
         $this->eventManager = $eventManager;
@@ -96,7 +96,6 @@ class Tag extends AbstractDb
      * Retrieves Tag Name from DB by passed id.
      *
      * @param $id
-     *
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -144,7 +143,6 @@ class Tag extends AbstractDb
 
     /**
      * @param \Mageplaza\Blog\Model\Tag $tag
-     *
      * @return array
      */
     public function getPostsPosition(\Mageplaza\Blog\Model\Tag $tag)
@@ -160,7 +158,6 @@ class Tag extends AbstractDb
 
     /**
      * @param \Mageplaza\Blog\Model\Tag $tag
-     *
      * @return $this
      */
     protected function savePostRelation(\Mageplaza\Blog\Model\Tag $tag)
@@ -168,40 +165,31 @@ class Tag extends AbstractDb
         $tag->setIsChangedPostList(false);
         $id = $tag->getId();
         $posts = $tag->getPostsData();
-        $oldPosts = $tag->getPostsPosition();
-        if (is_array($posts)) {
-            $insert = array_diff_key($posts, $oldPosts);
-            $delete = array_diff_key($oldPosts, $posts);
-            $update = array_intersect_key($posts, $oldPosts);
-            $_update = [];
-            foreach ($update as $key => $settings) {
-                if (isset($oldPosts[$key]) && $oldPosts[$key] != $settings['position']) {
-                    $_update[$key] = $settings;
-                }
-            }
-            $update = $_update;
-        }
-        $adapter = $this->getConnection();
         if ($posts === null) {
-            foreach (array_keys($oldPosts) as $value) {
-                $condition = ['post_id =?' => (int)$value, 'tag_id=?' => (int)$id];
-                $adapter->delete($this->tagPostTable, $condition);
-            }
-
             return $this;
         }
-        if (!empty($delete)) {
-            foreach (array_keys($delete) as $value) {
-                $condition = ['post_id =?' => (int)$value, 'tag_id=?' => (int)$id];
-                $adapter->delete($this->tagPostTable, $condition);
+        $oldPosts = $tag->getPostsPosition();
+        $insert = array_diff_key($posts, $oldPosts);
+        $delete = array_diff_key($oldPosts, $posts);
+        $update = array_intersect_key($posts, $oldPosts);
+        $_update = [];
+        foreach ($update as $key => $settings) {
+            if (isset($oldPosts[$key]) && $oldPosts[$key] != $settings['position']) {
+                $_update[$key] = $settings;
             }
+        }
+        $update = $_update;
+        $adapter = $this->getConnection();
+        if (!empty($delete)) {
+            $condition = ['post_id IN(?)' => array_keys($delete), 'tag_id=?' => $id];
+            $adapter->delete($this->tagPostTable, $condition);
         }
         if (!empty($insert)) {
             $data = [];
             foreach ($insert as $postId => $position) {
                 $data[] = [
-                    'tag_id'   => (int)$id,
-                    'post_id'  => (int)$postId,
+                    'tag_id' => (int)$id,
+                    'post_id' => (int)$postId,
                     'position' => (int)$position['position']
                 ];
             }
@@ -234,7 +222,6 @@ class Tag extends AbstractDb
      * Check category url key is exists
      *
      * @param $urlKey
-     *
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -254,7 +241,6 @@ class Tag extends AbstractDb
      *
      * @param $importSource
      * @param $oldId
-     *
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -271,7 +257,6 @@ class Tag extends AbstractDb
 
     /**
      * @param $importType
-     *
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function deleteImportItems($importType)

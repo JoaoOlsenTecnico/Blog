@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -44,7 +44,6 @@ class Import extends Template
 
     /**
      * Before constructor.
-     *
      * @param Context $context
      * @param BlogHelper $blogHelper
      * @param Type $importType
@@ -55,10 +54,10 @@ class Import extends Template
         BlogHelper $blogHelper,
         Type $importType,
         array $data = []
-    ) {
+    )
+    {
         $this->blogHelper = $blogHelper;
         $this->importType = $importType;
-
         parent::__construct($context, $data);
     }
 
@@ -74,13 +73,14 @@ class Import extends Template
         array_shift($types);
 
         return BlogHelper::jsonEncode($types);
+
     }
 
     /**
      * @param $priority
      * @param $message
-     *
      * @return string
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getMessagesHtml($priority, $message)
     {
@@ -97,8 +97,7 @@ class Import extends Template
     public function getImportButtonHtml()
     {
         $importUrl = $this->getUrl('mageplaza_blog/import/import');
-        $html = '&nbsp;&nbsp;<button id="word-press-import" href="' . $importUrl . '" class="" type="button" onclick="mpBlogImport.importAction();"><span><span><span>Import</span></span></span></button>';
-
+        $html = '&nbsp;&nbsp;<button id="word-press-import" href="' . $importUrl . '" class="" type="" onclick="mpBlogImport.importAction();"><span><span><span>Import</span></span></span></button>';
         return $html;
     }
 }

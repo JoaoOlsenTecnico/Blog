@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -47,7 +47,6 @@ abstract class Author extends Action
 
     /**
      * Author constructor.
-     *
      * @param Context $context
      * @param Registry $coreRegistry
      * @param AuthorFactory $authorFactory
@@ -56,7 +55,8 @@ abstract class Author extends Action
         Context $context,
         Registry $coreRegistry,
         AuthorFactory $authorFactory
-    ) {
+    )
+    {
         $this->authorFactory = $authorFactory;
         $this->coreRegistry = $coreRegistry;
 
@@ -64,7 +64,8 @@ abstract class Author extends Action
     }
 
     /**
-     * @return bool|\Mageplaza\Blog\Model\Author
+     * @return \Mageplaza\Blog\Model\Author
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function initAuthor()
     {
@@ -76,9 +77,8 @@ abstract class Author extends Action
             ->load($userId);
 
         if (!$author->getId()) {
-            $this->messageManager->addErrorMessage(__('This author no longer exists. Please create the post to access the author management session.'));
-
-            return false;
+            $author->setId($userId)
+                ->setName($user->getName());
         }
 
         return $author;

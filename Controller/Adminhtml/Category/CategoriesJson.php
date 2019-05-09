@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -50,7 +50,6 @@ class CategoriesJson extends Category
 
     /**
      * CategoriesJson constructor.
-     *
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Framework\Registry $coreRegistry
      * @param \Mageplaza\Blog\Model\CategoryFactory $categoryFactory
@@ -63,7 +62,8 @@ class CategoriesJson extends Category
         CategoryFactory $categoryFactory,
         JsonFactory $resultJsonFactory,
         LayoutFactory $layoutFactory
-    ) {
+    )
+    {
         $this->resultJsonFactory = $resultJsonFactory;
         $this->layoutFactory = $layoutFactory;
 

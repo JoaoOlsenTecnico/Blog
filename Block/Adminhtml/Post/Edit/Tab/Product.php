@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -46,7 +46,6 @@ class Product extends Extended implements TabInterface
 
     /**
      * Product constructor.
-     *
      * @param \Magento\Catalog\Model\ResourceModel\Product\CollectionFactory $productCollectionFactory
      * @param \Magento\Framework\Registry $coreRegistry
      * @param \Magento\Backend\Block\Template\Context $context
@@ -59,10 +58,10 @@ class Product extends Extended implements TabInterface
         Data $backendHelper,
         CollectionFactory $productCollectionFactory,
         array $data = []
-    ) {
+    )
+    {
         $this->productCollectionFactory = $productCollectionFactory;
         $this->coreRegistry = $coreRegistry;
-
         parent::__construct($context, $backendHelper, $data);
     }
 
@@ -104,36 +103,40 @@ class Product extends Extended implements TabInterface
     protected function _prepareColumns()
     {
         $this->addColumn('in_products', [
-            'header_css_class' => 'a-center',
-            'type'             => 'checkbox',
-            'name'             => 'in_product',
-            'values'           => $this->_getSelectedProducts(),
-            'align'            => 'center',
-            'index'            => 'entity_id'
-        ]);
+                'header_css_class' => 'a-center',
+                'type' => 'checkbox',
+                'name' => 'in_product',
+                'values' => $this->_getSelectedProducts(),
+                'align' => 'center',
+                'index' => 'entity_id'
+            ]
+        );
         $this->addColumn('entity_id', [
-            'header'           => __('ID'),
-            'sortable'         => true,
-            'index'            => 'entity_id',
-            'type'             => 'number',
-            'header_css_class' => 'col-id',
-            'column_css_class' => 'col-id'
-        ]);
+                'header' => __('ID'),
+                'sortable' => true,
+                'index' => 'entity_id',
+                'type' => 'number',
+                'header_css_class' => 'col-id',
+                'column_css_class' => 'col-id'
+            ]
+        );
         $this->addColumn('title', [
-            'header'           => __('Sku'),
-            'index'            => 'sku',
-            'header_css_class' => 'col-name',
-            'column_css_class' => 'col-name'
-        ]);
+                'header' => __('Sku'),
+                'index' => 'sku',
+                'header_css_class' => 'col-name',
+                'column_css_class' => 'col-name'
+            ]
+        );
         $this->addColumn('position', [
-            'header'         => __('Position'),
-            'name'           => 'position',
-            'width'          => 60,
-            'type'           => 'number',
-            'validate_class' => 'validate-number',
-            'index'          => 'position',
-            'editable'       => true
-        ]);
+                'header' => __('Position'),
+                'name' => 'position',
+                'width' => 60,
+                'type' => 'number',
+                'validate_class' => 'validate-number',
+                'index' => 'position',
+                'editable' => true,
+            ]
+        );
 
         return $this;
     }
@@ -174,7 +177,6 @@ class Product extends Extended implements TabInterface
 
     /**
      * @param \Mageplaza\Blog\Model\Tag|\Magento\Framework\Object $item
-     *
      * @return string
      */
     public function getRowUrl($item)
@@ -202,7 +204,6 @@ class Product extends Extended implements TabInterface
 
     /**
      * @param \Magento\Backend\Block\Widget\Grid\Column $column
-     *
      * @return $this
      * @throws \Magento\Framework\Exception\LocalizedException
      */

@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -40,14 +40,14 @@ class Index extends Action
 
     /**
      * Index constructor.
-     *
      * @param \Magento\Backend\App\Action\Context $context
      * @param \Magento\Backend\Model\View\Result\ForwardFactory $resultForwardFactory
      */
     public function __construct(
         Context $context,
         ForwardFactory $resultForwardFactory
-    ) {
+    )
+    {
         $this->resultForwardFactory = $resultForwardFactory;
         parent::__construct($context);
     }

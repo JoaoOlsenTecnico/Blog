@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -56,7 +56,6 @@ class RelatedPost extends Template
 
     /**
      * RelatedPost constructor.
-     *
      * @param Context $context
      * @param Registry $registry
      * @param Data $helperData
@@ -67,7 +66,8 @@ class RelatedPost extends Template
         Registry $registry,
         Data $helperData,
         array $data = []
-    ) {
+    )
+    {
         $this->_coreRegistry = $registry;
         $this->helperData = $helperData;
 
@@ -97,8 +97,7 @@ class RelatedPost extends Template
             /** @var \Mageplaza\Blog\Model\ResourceModel\Post\Collection $collection */
             $collection = $this->helperData->getPostList();
             $collection->getSelect()
-                ->join(
-                    [
+                ->join([
                     'related' => $collection->getTable('mageplaza_blog_post_product')],
                     'related.post_id=main_table.post_id AND related.entity_id=' . $this->getProductId()
                 )

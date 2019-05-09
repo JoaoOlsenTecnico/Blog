@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -50,7 +50,6 @@ class SuggestCategories extends Category
 
     /**
      * SuggestCategories constructor.
-     *
      * @param \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory
      * @param \Magento\Framework\View\LayoutFactory $layoutFactory
      * @param \Mageplaza\Blog\Model\CategoryFactory $categoryFactory
@@ -63,7 +62,8 @@ class SuggestCategories extends Category
         CategoryFactory $categoryFactory,
         JsonFactory $resultJsonFactory,
         LayoutFactory $layoutFactory
-    ) {
+    )
+    {
         $this->resultJsonFactory = $resultJsonFactory;
         $this->layoutFactory = $layoutFactory;
 

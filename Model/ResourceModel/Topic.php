@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -62,7 +62,6 @@ class Topic extends AbstractDb
 
     /**
      * Topic constructor.
-     *
      * @param \Magento\Framework\Model\ResourceModel\Db\Context $context
      * @param \Magento\Framework\Stdlib\DateTime\DateTime $date
      * @param \Magento\Framework\Event\ManagerInterface $eventManager
@@ -73,7 +72,8 @@ class Topic extends AbstractDb
         DateTime $date,
         ManagerInterface $eventManager,
         Data $helperData
-    ) {
+    )
+    {
         $this->helperData = $helperData;
         $this->date = $date;
         $this->eventManager = $eventManager;
@@ -97,7 +97,6 @@ class Topic extends AbstractDb
      * Retrieves Topic Name from DB by passed id.
      *
      * @param $id
-     *
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -137,7 +136,6 @@ class Topic extends AbstractDb
      * after save callback
      *
      * @param AbstractModel|\Mageplaza\Blog\Model\Topic $object
-     *
      * @return $this
      */
     protected function _afterSave(AbstractModel $object)
@@ -149,7 +147,6 @@ class Topic extends AbstractDb
 
     /**
      * @param \Mageplaza\Blog\Model\Topic $topic
-     *
      * @return array
      */
     public function getPostsPosition(\Mageplaza\Blog\Model\Topic $topic)
@@ -168,7 +165,6 @@ class Topic extends AbstractDb
 
     /**
      * @param \Mageplaza\Blog\Model\Topic $topic
-     *
      * @return $this
      */
     protected function savePostRelation(\Mageplaza\Blog\Model\Topic $topic)
@@ -176,40 +172,31 @@ class Topic extends AbstractDb
         $topic->setIsChangedPostList(false);
         $id = $topic->getId();
         $posts = $topic->getPostsData();
-        $oldPosts = $topic->getPostsPosition();
-        if (is_array($posts)) {
-            $insert = array_diff_key($posts, $oldPosts);
-            $delete = array_diff_key($oldPosts, $posts);
-            $update = array_intersect_key($posts, $oldPosts);
-            $_update = [];
-            foreach ($update as $key => $settings) {
-                if (isset($oldPosts[$key]) && $oldPosts[$key] != $settings['position']) {
-                    $_update[$key] = $settings;
-                }
-            }
-            $update = $_update;
-        }
-        $adapter = $this->getConnection();
         if ($posts === null) {
-            foreach (array_keys($oldPosts) as $value) {
-                $condition = ['post_id =?' => (int)$value, 'topic_id=?' => (int)$id];
-                $adapter->delete($this->topicPostTable, $condition);
-            }
-
             return $this;
         }
-        if (!empty($delete)) {
-            foreach (array_keys($delete) as $value) {
-                $condition = ['post_id =?' => (int)$value, 'topic_id=?' => (int)$id];
-                $adapter->delete($this->topicPostTable, $condition);
+        $oldPosts = $topic->getPostsPosition();
+        $insert = array_diff_key($posts, $oldPosts);
+        $delete = array_diff_key($oldPosts, $posts);
+        $update = array_intersect_key($posts, $oldPosts);
+        $_update = [];
+        foreach ($update as $key => $settings) {
+            if (isset($oldPosts[$key]) && $oldPosts[$key] != $settings['position']) {
+                $_update[$key] = $settings;
             }
+        }
+        $update = $_update;
+        $adapter = $this->getConnection();
+        if (!empty($delete)) {
+            $condition = ['post_id IN(?)' => array_keys($delete), 'topic_id=?' => $id];
+            $adapter->delete($this->topicPostTable, $condition);
         }
         if (!empty($insert)) {
             $data = [];
             foreach ($insert as $postId => $position) {
                 $data[] = [
                     'topic_id' => (int)$id,
-                    'post_id'  => (int)$postId,
+                    'post_id' => (int)$postId,
                     'position' => (int)$position['position']
                 ];
             }
@@ -243,7 +230,6 @@ class Topic extends AbstractDb
      *
      * @param $importSource
      * @param $oldId
-     *
      * @return string
      * @throws \Magento\Framework\Exception\LocalizedException
      */
@@ -260,7 +246,6 @@ class Topic extends AbstractDb
 
     /**
      * @param $importType
-     *
      * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function deleteImportItems($importType)

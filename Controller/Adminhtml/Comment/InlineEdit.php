@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -49,7 +49,6 @@ class InlineEdit extends Action
 
     /**
      * InlineEdit constructor.
-     *
      * @param Context $context
      * @param JsonFactory $jsonFactory
      * @param CommentFactory $commentFactory
@@ -58,7 +57,8 @@ class InlineEdit extends Action
         Context $context,
         JsonFactory $jsonFactory,
         CommentFactory $commentFactory
-    ) {
+    )
+    {
         $this->jsonFactory = $jsonFactory;
         $this->commentFactory = $commentFactory;
 
@@ -78,10 +78,8 @@ class InlineEdit extends Action
 
         if (!($this->getRequest()->getParam('isAjax') && !empty($commentItems))) {
             return $resultJson->setData([
-                'messages' => [
-                    __('Please correct the data sent.')
-                ],
-                'error'    => true,
+                'messages' => [__('Please correct the data sent.')],
+                'error' => true,
             ]);
         }
 
@@ -110,14 +108,13 @@ class InlineEdit extends Action
 
         return $resultJson->setData([
             'messages' => $messages,
-            'error'    => $error
+            'error' => $error
         ]);
     }
 
     /**
      * @param \Mageplaza\Blog\Model\Comment $comment
      * @param $errorText
-     *
      * @return string
      */
     public function getErrorWithCommentId(\Mageplaza\Blog\Model\Comment $comment, $errorText)

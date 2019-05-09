@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -43,14 +43,14 @@ class UpgradeData implements UpgradeDataInterface
 
     /**
      * UpgradeData constructor.
-     *
      * @param DateTime $date
      * @param CommentFactory $commentFactory
      */
     public function __construct(
         DateTime $date,
         CommentFactory $commentFactory
-    ) {
+    )
+    {
         $this->comment = $commentFactory;
         $this->date = $date;
     }
@@ -72,7 +72,7 @@ class UpgradeData implements UpgradeDataInterface
                 /** Add create at old comment */
                 $sampleTemplates = [
                     'created_at' => $this->date->date(),
-                    'status'     => 3
+                    'status' => 3
                 ];
                 $setup->getConnection()->update($setup->getTable('mageplaza_blog_comment'), $sampleTemplates, 'comment_id IN (' . $commentIds . ')');
             }

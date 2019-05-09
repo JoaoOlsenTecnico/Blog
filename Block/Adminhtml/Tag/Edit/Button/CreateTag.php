@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -25,8 +25,6 @@ use Magento\Framework\View\Element\UiComponent\Control\ButtonProviderInterface;
 
 /**
  * Button "Create Tag" in "New Category" slide-out panel of a product page
- * Class CreateTag
- * @package Mageplaza\Blog\Block\Adminhtml\Tag\Edit\Button
  */
 class CreateTag implements ButtonProviderInterface
 {
@@ -36,13 +34,13 @@ class CreateTag implements ButtonProviderInterface
     public function getButtonData()
     {
         return [
-            'label'          => __('Create Tag'),
-            'class'          => 'save primary',
+            'label' => __('Create Tag'),
+            'class' => 'save primary',
             'data_attribute' => [
                 'mage-init' => ['button' => ['event' => 'save']],
                 'form-role' => 'save',
             ],
-            'sort_order'     => 10
+            'sort_order' => 10
         ];
     }
 }

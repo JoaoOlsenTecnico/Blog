@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -40,8 +40,7 @@ class Listpost extends Frontend
         if ($collection && $collection->getSize()) {
             $pager = $this->getLayout()->createBlock('Magento\Theme\Block\Html\Pager', 'mpblog.post.pager');
 
-            $perPageValues = (string)$this->helperData->getConfigGeneral('pagination');
-            ;
+            $perPageValues = (string)$this->helperData->getConfigGeneral('pagination');;
             $perPageValues = explode(',', $perPageValues);
             $perPageValues = array_combine($perPageValues, $perPageValues);
 
@@ -55,34 +54,13 @@ class Listpost extends Frontend
     }
 
     /**
-     * find /n in text
-     *
-     * @param $description
-     *
-     * @return string
-     */
-    public function maxShortDescription($description)
-    {
-        if (is_string($description)) {
-            $html = '';
-            foreach (explode("\n", trim($description)) as $value) {
-                $html .= '<p>' . $value . '</p>';
-            }
-
-            return $html;
-        }
-
-        return $description;
-    }
-
-    /**
      * Override this function to apply collection for each type
      *
      * @return \Mageplaza\Blog\Model\ResourceModel\Post\Collection
      */
     protected function getCollection()
     {
-        return $this->helperData->getPostCollection(null, null, $this->store->getStore()->getId());
+        return $this->helperData->getPostCollection();
     }
 
     /**
@@ -110,7 +88,7 @@ class Listpost extends Frontend
             $breadcrumbs->addCrumb('home', [
                 'label' => __('Home'),
                 'title' => __('Go to Home Page'),
-                'link'  => $this->_storeManager->getStore()->getBaseUrl()
+                'link' => $this->_storeManager->getStore()->getBaseUrl()
             ])
                 ->addCrumb($this->helperData->getRoute(), $this->getBreadcrumbsData());
         }
@@ -183,7 +161,6 @@ class Listpost extends Frontend
 
     /**
      * @param bool $meta
-     *
      * @return array
      */
     public function getBlogTitle($meta = false)

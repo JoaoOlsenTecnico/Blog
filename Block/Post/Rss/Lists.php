@@ -15,7 +15,7 @@
  *
  * @category    Mageplaza
  * @package     Mageplaza_Blog
- * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @copyright   Copyright (c) 2018 Mageplaza (http://www.mageplaza.com/)
  * @license     https://www.mageplaza.com/LICENSE.txt
  */
 
@@ -50,7 +50,6 @@ class Lists extends AbstractBlock implements DataProviderInterface
 
     /**
      * Lists constructor.
-     *
      * @param \Magento\Framework\View\Element\Template\Context $context
      * @param \Mageplaza\Blog\Helper\Data $helper
      * @param \Magento\Framework\App\Rss\UrlBuilderInterface $rssUrlBuilder
@@ -61,7 +60,8 @@ class Lists extends AbstractBlock implements DataProviderInterface
         UrlBuilderInterface $rssUrlBuilder,
         Data $helper,
         array $data = []
-    ) {
+    )
+    {
         $this->rssUrlBuilder = $rssUrlBuilder;
         $this->helper = $helper;
         $this->storeManager = $context->getStoreManager();
@@ -95,11 +95,11 @@ class Lists extends AbstractBlock implements DataProviderInterface
         $storeModel = $this->storeManager->getStore($this->getStoreId());
         $title = __('List Posts from %1', $storeModel->getFrontendName());
         $data = [
-            'title'       => $title,
+            'title' => $title,
             'description' => $title,
-            'link'        => $this->rssUrlBuilder->getUrl(['store_id' => $this->getStoreId(), 'type' => 'blog_posts']),
-            'charset'     => 'UTF-8',
-            'language'    => $this->helper->getConfigValue('general/locale/code', $storeModel),
+            'link' => $this->rssUrlBuilder->getUrl(['store_id' => $this->getStoreId(), 'type' => 'blog_posts']),
+            'charset' => 'UTF-8',
+            'language' => $this->helper->getConfigValue('general/locale/code', $storeModel),
         ];
 
         $posts = $this->helper->getPostList($this->getStoreId())
@@ -113,10 +113,10 @@ class Lists extends AbstractBlock implements DataProviderInterface
 
             $description = '<table><tr><td style="text-decoration:none;"> ' . $item->getShortDescription() . '</td></tr></table>';
             $data['entries'][] = [
-                'title'       => $item->getName(),
-                'link'        => $item->getUrl(),
+                'title' => $item->getName(),
+                'link' => $item->getUrl(),
                 'description' => $description,
-                'lastUpdate'  => strtotime($item->getPublishDate())
+                'lastUpdate' => strtotime($item->getPublishDate())
             ];
         }
 
